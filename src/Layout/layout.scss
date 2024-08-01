@@ -1,26 +1,30 @@
-.layout{
+.layout {
 }
-.header{
-    height: 100px;
-    margin-bottom: 50px;
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 
-    &_title{
-        background-color: aqua;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-    }
-    &navBar{
-        height: 100px;
-    }
+  &_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  &navBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
-.searchBar{
-    background-color: orange;
-    height: 100px;
-    margin-bottom: 50px;
+.searchBar {
+  background-color: orange;
+  height: 100px;
+  margin-bottom: 50px;
 }
-.content{
-    background-color: red;
-    height: 800px;
+.content {
+  background-color: red;
+  height: 800px;
 }
