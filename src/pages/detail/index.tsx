@@ -1,9 +1,12 @@
 import React from "react";
+import Layout from "../../Layout";
 
-const Favorite = () => {
+const Detail = () => {
     return (
-        <div>home</div>
+        <>
+    <Layout>Detail</Layout>
+    </>
     );
 };
 
-export default Favorite;
+export default Detail;

@@ -1,7 +1,13 @@
+import React from "react";
+import Layout from "../../Layout";
+
+
 const Add = () => {
-    return ( 
-    <div>Add</div> 
+    return (
+        <>
+            <Layout>Add</Layout>
+        </>
     );
 }
- 
+
 export default Add;
