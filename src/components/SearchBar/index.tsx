@@ -15,7 +15,7 @@ const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?
 
 const SearchBar: React.FC = () => (
     <Row>
-        <Col span={12} offset={6} className='searchLine'>
+        <Col span={10} offset={7} className='searchLine'>
             <Button type="primary" shape="round" size='large'>
                 A-Z
             </Button>

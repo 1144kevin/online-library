@@ -2,10 +2,13 @@ import React from 'react';
 import './App.scss';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
+import { BookProvider } from './context/bookContext';
 
 const App = () => {
   return (
-    <RouterProvider router={router}/>
+    <BookProvider>
+      <RouterProvider router={router} />
+    </BookProvider>
   );
 }
 
