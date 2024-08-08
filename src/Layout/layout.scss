@@ -1,23 +1,25 @@
 .header {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-bottom: 30px;
 
   &_title {
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 30px;
+    justify-content: center;
     margin-bottom: 30px;
+    font-size: 30px;
   }
+
   &navBar {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
   }
 }
+
 .content {
-  background-color: red;
   height: 800px;
+  background-color: #ff0000;
 }
