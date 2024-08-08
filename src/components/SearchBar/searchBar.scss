@@ -1,4 +1,24 @@
 .searchLine {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.sort {
+  margin-right: 40px;
+  color: hwb(0 74% 26%);
+  background-color: #ffffff; // 按鈕被選中時的顏色
+  border-color: hwb(0 74% 26%);
+
+  // &:hover {
+  //   color: hwb(0 0% 100%); // 更改為鼠標移到時的文字顏色
+  //   background-color: hwb(0 50% 50%); // 更改為鼠標移到時的顏色
+  //   border-color: hwb(0 50% 50%); // 更改為鼠標移到時的邊框顏色
+  // }
+
+  &__reverse {
+    margin-right: 40px;
+    color: hwb(0 100% 0%);
+    background-color: hwb(0 74% 26%); // 按鈕被選中時的顏色
+    border-color: hwb(0 100% 0%);
+  }
 }

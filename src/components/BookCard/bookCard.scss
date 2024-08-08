@@ -1,20 +1,18 @@
 .icon {
   position: absolute;
   top: 20px;
-  right: 80px;
+  right: 60px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
 
-  :hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, .6);
-  }
-
-  &_background {
-    position: absolute;
-    top: -10px;
-    right: -30px;
-    width: 40px;
-    height: 40px;
-    background-color: rgb(255, 255, 255);
-    border-radius: 50%;
+  &__image {
+    color: #000000;
   }
 }
