@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction, useContext } from "react";
+import React, { useState, SetStateAction, useContext, useEffect } from "react";
 import Layout from "../../Layout";
 import SearchBar from "../../components/SearchBar";
 import BookList from "../../components/BookList";
@@ -9,17 +9,34 @@ import "./home.scss"
 
 const Home = () => {
   const [search, setSearch] = useState("");
-  const [searchList, setSearchList] = useState<bookDataType[]>([]);
   const { state } = useContext(BookContext);
   const { books } = state;
-  const handleSearch = (e: { target: { value: SetStateAction<string> } }) => {
-    setSearch(e.target.value);
+  const [searchList, setSearchList] = useState<bookDataType[]>(books);
+
+  useEffect(() => {
+    const sortedList = [...books].sort((a, b) => a.title.localeCompare(b.title));
+    setSearchList(sortedList); // 初始排序 A-Z
+  }, [books]);
+
+  const handleSearch = (value: string) => {
+    setSearch(value);
     const newList = books.filter((book) =>
-      book.title.toLowerCase().includes(search.toLowerCase())
+      book.title.toLowerCase().includes(value.toLowerCase())
     );
-    setSearchList(newList)
+    setSearchList(newList);
   };
-  console.log(books)
+
+  const sortAZ = () => {
+    const sortedList = [...books].sort((a, b) => a.title.localeCompare(b.title));
+    setSearchList(sortedList);
+    console.log(searchList);
+  };
+
+  const sortZA = () => {
+    const sortedList = [...books].sort((a, b) => b.title.localeCompare(a.title));
+    setSearchList(sortedList);
+  };
+
   return (
     <>
       <Layout>
@@ -28,14 +45,13 @@ const Home = () => {
             <h1>Home</h1>
           </Col>
           <Col span={24} className="searchBar">
-            <SearchBar />
+            <SearchBar onSearch={handleSearch} onSortAZ={sortAZ} onSortZA={sortZA} />
           </Col>
           <Col span={16} offset={4}>
-            {search === "" ? (
-                  <BookList bookList={books} />
-            ) : (
-                  <h1>Found</h1>
-            )}
+            <>
+              {search && <h1>找到{searchList.length}筆與{search}有關</h1>}
+              <BookList bookList={searchList} />
+            </>
           </Col>
         </Row>
       </Layout>

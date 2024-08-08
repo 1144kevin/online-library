@@ -3,7 +3,7 @@ import { Row, Col } from "antd";
 import { Card } from 'antd';
 import { bookDataType } from "../../assets/data";
 import { BookContext } from "../../context/bookContext";
-import { BookFilled, BookOutlined } from "@ant-design/icons";
+import { IoBookmarkOutline,IoBookmark } from "react-icons/io5";
 import './bookCard.scss'
 
 interface BookCardProps {
@@ -29,8 +29,12 @@ const BookCard = ({ book }: BookCardProps) => {
           <Meta title={book.title} description={book.description} />
         </Card>
       </Col>
-      <Col>
-        <BookOutlined className="icon"/>
+      <Col className="icon" onClick={() => handleToggleBookmark(book.id)}>
+        {book.isFavorite ? (
+          <IoBookmarkOutline/>
+        ) : (
+          <IoBookmark className="icon__image" />
+        )}
       </Col>
     </Row>
   )

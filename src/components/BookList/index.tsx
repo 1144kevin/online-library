@@ -8,8 +8,7 @@ interface BookListProps {
 }
 
 const BookList = ({ bookList }: BookListProps) => {
-
-    console.log(bookList)
+    
     return (
         <Row>
             {bookList.map((book) => (
