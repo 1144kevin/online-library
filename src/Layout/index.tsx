@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
     return (
         <Row>
-            <Col span={24} className="layout">
+            <Col span={24}>
                 <Row className="header">
                     <NavBar />
                 </Row>

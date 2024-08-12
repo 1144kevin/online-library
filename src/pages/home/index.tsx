@@ -1,39 +1,51 @@
-import React, { useState, SetStateAction, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../../Layout";
 import SearchBar from "../../components/SearchBar";
 import BookList from "../../components/BookList";
 import { Row, Col } from "antd";
-import { bookDataType } from "../../assets/data";
-import { BookContext } from "../../context/bookContext";
+import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
+import axios from "axios";
 
 const Home = () => {
   const [search, setSearch] = useState("");
-  const { state } = useContext(BookContext);
-  const { books } = state;
-  const [searchList, setSearchList] = useState<bookDataType[]>(books);
+  const [data, setData] = useState<bookDataType2[]>([]);
+  const [searchList, setSearchList] = useState<bookDataType2[]>(data);
+
 
   useEffect(() => {
-    const sortedList = [...books].sort((a, b) => a.title.localeCompare(b.title));
-    setSearchList(sortedList); // 初始排序 A-Z
-  }, [books]);
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(res => {
+        const sortedList = [...data].sort((a, b) => a.title.localeCompare(b.title));
+        setData(res.data);
+        setSearchList(sortedList); // 初始排序 A-Z
+      })
+      .catch(err => console.log(err))
+  },[]);
+
+  useEffect(() => {
+    // Filter the list based on the search query
+    const filteredList = data.filter((book) =>
+      book.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setSearchList(filteredList);
+  }, [search, data]);
 
   const handleSearch = (value: string) => {
     setSearch(value);
-    const newList = books.filter((book) =>
+    const newList = data.filter((book) =>
       book.title.toLowerCase().includes(value.toLowerCase())
     );
     setSearchList(newList);
   };
 
   const sortAZ = () => {
-    const sortedList = [...books].sort((a, b) => a.title.localeCompare(b.title));
+    const sortedList = [...data].sort((a, b) => a.title.localeCompare(b.title));
     setSearchList(sortedList);
-    console.log(searchList);
   };
 
   const sortZA = () => {
-    const sortedList = [...books].sort((a, b) => b.title.localeCompare(a.title));
+    const sortedList = [...data].sort((a, b) => b.title.localeCompare(a.title));
     setSearchList(sortedList);
   };
 

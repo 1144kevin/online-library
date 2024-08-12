@@ -1,10 +1,10 @@
-import React from "react";
-import { Row, Col, Flex } from "antd";
+import { Row, Col,} from "antd";
 import BookCard from "../BookCard";
-import { bookDataType } from "../../assets/data";
+import { bookDataType2 } from "../../assets/data";
+import'./bookList.scss'
 
 interface BookListProps {
-    bookList: bookDataType[];
+    bookList: bookDataType2[];
 }
 
 const BookList = ({ bookList }: BookListProps) => {
@@ -12,7 +12,7 @@ const BookList = ({ bookList }: BookListProps) => {
     return (
         <Row>
             {bookList.map((book) => (
-                <Col span={6} key={book.id} style={{display:"flex",justifyContent:"center",marginBottom:60}}>
+                <Col md={12} xl={8} xxl={6} key={book.id} className="book">
                     <BookCard book={book}/>
                 </Col>
             ))}

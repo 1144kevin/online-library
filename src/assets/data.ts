@@ -6,8 +6,14 @@ export interface bookDataType{
     image:string;
     description:string;
     isFavorite:boolean;
-    
 }
+export interface bookDataType2{
+    userId:string;
+    id:string;
+    title:string;
+    body:string;
+}
+
 export const bookData =[
     {
         id:"01",

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Input, Space } from 'antd';
-import type { GetProps } from 'antd';
+import { Input } from 'antd';
 import { Row, Col } from "antd";
 import { Button } from 'antd';
-import type { ConfigProviderProps } from 'antd';
+import { ConfigProvider } from 'antd';
 import './searchBar.scss'
 
 const { Search } = Input;
@@ -28,15 +27,27 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSortAZ, onSortZA }) =
     return (
         <Row>
             <Col span={10} offset={7} className='searchLine' >
-                <Button
-                    type="primary"
-                    shape="round"
-                    size='large'
-                    onClick={handleSortToggle}
-                    className={isAZ ? 'sort' : 'sort__reverse'}
+                <ConfigProvider
+                    theme={{
+                        components: {
+                            Button: {
+                                colorPrimaryBorderHover: '808080',
+                                colorPrimaryHover: '808080',
+                                colorPrimaryActive: '808080',
+                            },
+                        },
+                    }}
                 >
-                    {isAZ ? 'A-Z' : 'Z-A'}
-                </Button>
+                    <Button
+                        type="primary"
+                        shape="round"
+                        size="large"
+                        onClick={handleSortToggle}
+                        className={isAZ ? 'sort' : 'sort__reverse'}
+                    >
+                        {isAZ ? 'A-Z' : 'Z-A'}
+                    </Button>
+                </ConfigProvider>
                 <Search
                     placeholder="input search text"
                     allowClear
