@@ -1,0 +1,17 @@
+/build/
+/functions/
+/node_modules/
+/static/
+/tmp/
+/dist/
+
+*.cjs
+*.json
+*.txt
+*.js
+*.ts
+*.jsx
+*.tsx
+*.svg
+*.md
+*.html

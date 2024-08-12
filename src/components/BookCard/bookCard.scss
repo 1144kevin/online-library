@@ -1,0 +1,18 @@
+.icon {
+  position: absolute;
+  top: 20px;
+  right: 60px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+
+  &__image {
+    color: #000000;
+  }
+}

@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 import './layout.scss'
 import { Row, Col } from "antd";
-import Header from '../components/Header';
-
+import NavBar from '../components/navBar';
 interface LayoutProps {
     children: ReactNode;
 }
@@ -10,18 +9,12 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
     return (
         <Row>
-            <Col span={24} className="layout">
+            <Col span={24}>
                 <Row className="header">
-                    <Col span={6} className="header_title">{children}</Col>
-                    <Col span={10} offset={8} className="header_navBar">
-                        <Header/>
-                    </Col>
+                    <NavBar />
                 </Row>
                 <Row>
-                    <Col span={16} offset={4} className="searchBar"></Col>
-                </Row>
-                <Row >
-                    <Col span={20} offset={2} className="content"></Col>
+                    <Col span={24}>{children}</Col>
                 </Row>
             </Col>
         </Row>

@@ -1,0 +1,16 @@
+.searchLine {
+  display: flex;
+  justify-content: center;
+}
+
+.sort {
+  margin-right: 40px;
+  background-color: #000000; // 按鈕被選中時的顏色
+  border-color: hwb(0 74% 26%);
+
+  &__reverse {
+    margin-right: 40px;
+    background-color: hwb(0 74% 26%); // 按鈕被選中時的顏色
+    border-color: hwb(0 100% 0%);
+  }
+}

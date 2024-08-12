@@ -1,26 +1,6 @@
-.layout{
-}
-.header{
-    height: 100px;
-    margin-bottom: 50px;
-
-    &_title{
-        background-color: aqua;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 30px;
-    }
-    &navBar{
-        height: 100px;
-    }
-}
-.searchBar{
-    background-color: orange;
-    height: 100px;
-    margin-bottom: 50px;
-}
-.content{
-    background-color: red;
-    height: 800px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
