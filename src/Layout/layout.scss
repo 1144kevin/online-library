@@ -3,23 +3,4 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-
-  &_title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    font-size: 30px;
-  }
-
-  &navBar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.content {
-  height: 800px;
-  background-color: #ff0000;
 }
