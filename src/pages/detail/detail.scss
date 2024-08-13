@@ -1,0 +1,32 @@
+
+@mixin flex__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@mixin margin {
+  margin-bottom: 3rem;
+}
+
+.layout {
+  padding: 10rem;
+}
+
+.image {
+  @include flex__center;
+  @include margin;
+}
+
+.title {
+  @include flex__center;
+}
+
+.content {
+  @include flex__center;
+  @include margin;
+}
+
+.buttonContainer {
+  @include flex__center;
+  justify-content: end;
+}
