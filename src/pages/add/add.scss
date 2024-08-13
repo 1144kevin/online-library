@@ -10,23 +10,11 @@
   @include marginBottom;
   display: flex;
   justify-content: center;
-}
 
-.imagePicker::after {
-  content: 'click';
-  position: absolute;
-  align-content: center;
-  width: 200px;
-  height: 200px;
-  font-size: 5rem;
-  text-align: center;
-  background: rgba(0, 0, 0, .6); /* 半透明灰色覆盖层 */
-  opacity: 0;
-  transition: opacity .3s;
-}
-
-.imagePicker:hover::after {
-  opacity: 1;
+  &__button {
+    align-content: flex-end;
+    border: 0;
+  }
 }
 
 .title__input {
