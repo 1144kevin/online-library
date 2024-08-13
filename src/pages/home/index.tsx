@@ -9,7 +9,7 @@ import useAxios from "../../components/api/api";
 
 
 const Home = () => {
-  const {data, loading,error,getData}=useAxios('https://jsonplaceholder.typicode.com/posts');
+  const {data,loading,error,getData}=useAxios('https://jsonplaceholder.typicode.com/posts');
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
 

@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import { Row, Col } from "antd";
 import { Card } from 'antd';
 import { bookDataType2 } from "../../assets/data";
