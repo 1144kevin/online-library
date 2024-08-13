@@ -1,15 +1,15 @@
-export interface bookDataType{
-    id:string;
-    title:string;
-    artist:string;
-    url:string;
-    image:string;
-    description:string;
-    isFavorite:boolean;
-}
+// export interface bookDataType{
+//     id:string;
+//     title:string;
+//     artist:string;
+//     url:string;
+//     image:string;
+//     description:string;
+//     isFavorite:boolean;
+// }
 export interface bookDataType2{
-    userId:string;
-    id:string;
+    userId:number;
+    id:number;
     title:string;
     body:string;
 }
