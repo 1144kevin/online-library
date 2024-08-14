@@ -2,10 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import favoriteSlice from "./favoriteSlice";
 
 const store = configureStore({
-  reducer:{
-    book:favoriteSlice
+  reducer: {
+    book: favoriteSlice
   }
-
-  })
-
-  export default store;
+})
+export type RootState = ReturnType<typeof store.getState>;
+export default store;

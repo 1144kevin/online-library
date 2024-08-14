@@ -6,11 +6,15 @@ import { Row, Col } from "antd";
 import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
 import axios from "axios";
+import { addToFavorite } from "../../redux/favoriteSlice";
+import { useDispatch } from "react-redux";
+
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<bookDataType2[]>([]);
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
+  const dispatch = useDispatch();
 
 
   useEffect(() => {
@@ -49,6 +53,10 @@ const Home = () => {
     setSearchList(sortedList);
   };
 
+  const handleAddToFavorite = (book: bookDataType2) => {
+    dispatch(addToFavorite({ book })); // Pass image if needed
+  };
+
   return (
     <>
       <Layout>
@@ -62,7 +70,7 @@ const Home = () => {
           <Col span={16} offset={4}>
             <>
               {search && <h1>找到{searchList.length}筆與{search}有關</h1>}
-              <BookList bookList={searchList} />
+              <BookList bookList={searchList} handleFavorite={handleAddToFavorite}/>
             </>
           </Col>
         </Row>
