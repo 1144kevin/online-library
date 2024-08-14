@@ -5,10 +5,10 @@ import BookList from "../../components/BookList";
 import { Row, Col } from "antd";
 import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
-import customHook from "../../hooks/CustomHook"
+import useFetchBook from "../../hooks/useFetchBook"
 
 const Home = () => {
-  const {data,loading,error,getData}=customHook('https://jsonplaceholder.typicode.com/posts');
+  const {data,loading,error,getData}=useFetchBook('https://jsonplaceholder.typicode.com/posts');
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
 

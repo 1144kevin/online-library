@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useAxios from "../../hooks/CustomHook";
+import useAxios from "../../hooks/useFetchBook";
 import { useEffect } from "react";
 import { Row, Col, Image, Button } from "antd";
 import './detail.scss'
