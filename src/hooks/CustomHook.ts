@@ -1,8 +1,8 @@
 import axios from "axios";
-import { bookDataType2 } from "../../assets/data";
+import { bookDataType2 } from "../assets/data";
 import { useState } from "react";
 
-const useAxios = (apiEndpoint: string) => {
+const CustomHook = (apiEndpoint: string) => {
   const [data, setData] = useState<bookDataType2[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
@@ -24,4 +24,4 @@ const useAxios = (apiEndpoint: string) => {
 
   return { data, loading, error, getData };
 };
-export default useAxios;
+export default CustomHook;

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import useAxios from "../../components/api/api";
+import useAxios from "../../hooks/CustomHook";
 import { useEffect } from "react";
 import { Row, Col, Image, Button } from "antd";
 import './detail.scss'
@@ -18,9 +18,9 @@ const Detail = () => {
 
     const parsedDataId = parseInt(dataId ?? "", 10);//轉成整數
 
-    const dataInfo = data.find(
+    const bookId = data.find(
         (y) => y.id === parsedDataId
-    );
+    );//命名從dataId改為bookId
 
     // if (loading) {
     //     return <p>Loading...</p>;
@@ -39,10 +39,10 @@ const Detail = () => {
                 />
             </Col>
             <Col xxl={6} xl={12} offset={9} className="title">
-                <h2>{dataInfo?.title}</h2>
+                <h2>{bookId?.title}</h2>
             </Col>
             <Col xxl={10} xl={12} offset={7} className="content">
-                <p>{dataInfo?.body}</p>
+                <p>{bookId?.body}</p>
             </Col>
             <Col xxl={10} xl={12} offset={7} className="buttonContainer">
                 <Button type="link" href="https://ant.design/index-cn">

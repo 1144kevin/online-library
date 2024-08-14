@@ -3,7 +3,7 @@ import { Card } from 'antd';
 import { bookDataType2 } from "../../assets/data";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import './bookCard.scss'
-import CustomLink from "../Link";
+import CustomLink from "../CustomLink";
 interface BookCardProps {
   book: bookDataType2;
 }
