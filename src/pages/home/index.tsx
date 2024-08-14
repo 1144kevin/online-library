@@ -5,12 +5,16 @@ import BookList from "../../components/BookList";
 import { Row, Col } from "antd";
 import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
+import axios from "axios";
+import { addToFavorite } from "../../redux/favoriteSlice";
+import { useDispatch } from "react-redux";
 import useFetchBook from "../../hooks/useFetchBook"
 
 const Home = () => {
   const {data,loading,error,getData}=useFetchBook('https://jsonplaceholder.typicode.com/posts');
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData()
@@ -42,6 +46,10 @@ const Home = () => {
     setSearchList(sortedList);
   };
 
+  const handleAddToFavorite = (book: bookDataType2) => {
+    dispatch(addToFavorite({ book })); // Pass image if needed
+  };
+    
   // if(loading){
   //   return(
   //     <p>Loading...</p>
@@ -65,7 +73,7 @@ const Home = () => {
           <Col span={16} offset={4}>
             <>
               {search && <h1>找到{searchList.length}筆與{search}有關</h1>}
-              <BookList bookList={searchList} />
+              <BookList bookList={searchList} handleFavorite={handleAddToFavorite}/>
             </>
           </Col>
         </Row>
