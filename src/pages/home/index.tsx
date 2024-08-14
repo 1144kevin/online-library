@@ -5,22 +5,15 @@ import BookList from "../../components/BookList";
 import { Row, Col } from "antd";
 import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
-import axios from "axios";
+import useFetchBook from "../../hooks/useFetchBook"
 
 const Home = () => {
+  const {data,loading,error,getData}=useFetchBook('https://jsonplaceholder.typicode.com/posts');
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<bookDataType2[]>([]);
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
 
-
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        const sortedList = [...data].sort((a, b) => a.title.localeCompare(b.title));
-        setData(res.data);
-        setSearchList(sortedList); // 初始排序 A-Z
-      })
-      .catch(err => console.log(err))
+    getData()
   },[]);
 
   useEffect(() => {
@@ -49,8 +42,18 @@ const Home = () => {
     setSearchList(sortedList);
   };
 
+  // if(loading){
+  //   return(
+  //     <p>Loading...</p>
+  //   )
+  // }
+  // if(error){
+  //   return(
+  //     <p>Error:{error.message}</p>
+  //   )
+  // }
+
   return (
-    <>
       <Layout>
         <Row>
           <Col span={24} className="title">
@@ -67,7 +70,6 @@ const Home = () => {
           </Col>
         </Row>
       </Layout>
-    </>
   );
 };
 
