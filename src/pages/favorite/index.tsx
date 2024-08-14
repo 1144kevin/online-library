@@ -27,7 +27,6 @@ const Favorite = () => {
           </Col>
           <Col span={16} offset={4}>
             <>
-              {/* {search && <h1>找到{searchList.length}筆與{search}有關</h1>} */}
               <BookList bookList={bookList} handleFavorite={handleRemoveFromFavorite}/>
             </>
           </Col>

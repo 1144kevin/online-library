@@ -4,7 +4,6 @@ import { bookDataType2 } from "../../assets/data";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import './bookCard.scss'
 
-
 interface BookCardProps {
   book: bookDataType2 & { isFavorite?: boolean };
   handleFavorite: (book: bookDataType2) => void;

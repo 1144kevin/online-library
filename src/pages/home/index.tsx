@@ -8,23 +8,16 @@ import "./home.scss"
 import axios from "axios";
 import { addToFavorite } from "../../redux/favoriteSlice";
 import { useDispatch } from "react-redux";
-
+import useFetchBook from "../../hooks/useFetchBook"
 
 const Home = () => {
+  const {data,loading,error,getData}=useFetchBook('https://jsonplaceholder.typicode.com/posts');
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<bookDataType2[]>([]);
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then(res => {
-        const sortedList = [...data].sort((a, b) => a.title.localeCompare(b.title));
-        setData(res.data);
-        setSearchList(sortedList); // 初始排序 A-Z
-      })
-      .catch(err => console.log(err))
+    getData()
   },[]);
 
   useEffect(() => {
@@ -56,9 +49,19 @@ const Home = () => {
   const handleAddToFavorite = (book: bookDataType2) => {
     dispatch(addToFavorite({ book })); // Pass image if needed
   };
+    
+  // if(loading){
+  //   return(
+  //     <p>Loading...</p>
+  //   )
+  // }
+  // if(error){
+  //   return(
+  //     <p>Error:{error.message}</p>
+  //   )
+  // }
 
   return (
-    <>
       <Layout>
         <Row>
           <Col span={24} className="title">
@@ -75,7 +78,6 @@ const Home = () => {
           </Col>
         </Row>
       </Layout>
-    </>
   );
 };
 

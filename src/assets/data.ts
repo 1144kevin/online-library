@@ -1,6 +1,6 @@
 export interface bookDataType2{
-    userId:string;
-    id:string;
+    userId:number;
+    id:number;
     title:string;
     body:string;
 }
