@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Detail from "./pages/detail";
 import Favorite from "./pages/favorite";
 import Add from "./pages/add"
+import Update from "./pages/update"
 
 export default function Router() {
     return (
@@ -11,13 +12,10 @@ export default function Router() {
                 <Route path="/" element={<Home />} />
                 <Route path="/favorite" element={<Favorite />} />
                 <Route path="/add" element={<Add />} />
-                {/* <Route path="/add">
-                    <Route path="id/:musicId" element={<Detail />} />
-                    <Route path="id/:musicId/photoalbum/music/id/:musicId" element={<Detail />} />
-                </Route> */}
                 <Route path="detail">
                     <Route path="id/:dataId" element={<Detail />} />
-                
+                    <Route path="id/:dataId/update" element={<Update />} />
+                    
                     {/* <Route path="id/:productId/music/id/:productId" element={<Detail />} /> */}
                 </Route>
             </Routes>

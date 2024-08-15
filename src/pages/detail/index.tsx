@@ -3,6 +3,7 @@ import useAxios from "../../hooks/useFetchBook";
 import { useEffect } from "react";
 import { Row, Col, Image, Button } from "antd";
 import './detail.scss'
+import CostumLink from "../../components/CustomLink"
 
 const Detail = () => {
 
@@ -14,7 +15,7 @@ const Detail = () => {
             getData();
         }
     }, [data, getData]);//避免重複請求，確保在必要時才請求，減少重複渲染、副作用
-    
+
 
     const parsedDataId = parseInt(dataId ?? "", 10);//轉成整數
 
@@ -45,9 +46,11 @@ const Detail = () => {
                 <p>{bookId?.body}</p>
             </Col>
             <Col span={10} offset={7} className="buttonContainer">
-                <Button type="link" href="https://ant.design/index-cn">
-                    更新
-                </Button>
+                <CostumLink to={`update`}>
+                    <Button type="link" href="https://ant.design/index-cn">
+                        更新
+                    </Button>
+                </CostumLink>
                 <Button type="link" danger>
                     刪除
                 </Button>
