@@ -1,0 +1,31 @@
+@mixin marginBottom {
+  margin-bottom: 4rem;
+}
+
+.title {
+  @include marginBottom;
+}
+
+.imagePicker {
+  @include marginBottom;
+  display: flex;
+  justify-content: center;
+
+  &__button {
+    align-content: flex-end;
+    border: 0;
+  }
+}
+
+.title__input {
+  margin-bottom: 2rem;
+}
+
+.content__input {
+  @include marginBottom;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: end;
+}
