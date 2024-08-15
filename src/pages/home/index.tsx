@@ -5,9 +5,9 @@ import BookList from "../../components/BookList";
 import { Row, Col } from "antd";
 import { bookDataType2 } from "../../assets/data";
 import "./home.scss"
-import axios from "axios";
-import { addToFavorite } from "../../redux/favoriteSlice";
-import { useDispatch } from "react-redux";
+import { addToFavorite,removeFromFavorite } from "../../redux/favoriteSlice";
+import { useDispatch,useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import useFetchBook from "../../hooks/useFetchBook"
 
 const Home = () => {
@@ -15,6 +15,9 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType2[]>(data);
   const dispatch = useDispatch();
+  const bookitems = useSelector((state: RootState) => state.book.book);
+  // Map the bookitems to only extract the `book` property
+  const bookList = bookitems.map(item => item.book);
 
   useEffect(() => {
     getData()
@@ -49,6 +52,19 @@ const Home = () => {
   const handleAddToFavorite = (book: bookDataType2) => {
     dispatch(addToFavorite({ book })); // Pass image if needed
   };
+
+  const handleRemoveFromFavorite = (book: bookDataType2) => {
+    dispatch(removeFromFavorite({ book })); // Pass image if needed
+  };
+
+  const handleFavoriteToggle = (book: bookDataType2) => {
+    const isFavorite = bookList.some(favBook => favBook.id === book.id);
+    if (isFavorite) {
+      handleRemoveFromFavorite(book);
+    } else {
+      handleAddToFavorite(book);
+    }
+  };
     
   // if(loading){
   //   return(
@@ -73,7 +89,7 @@ const Home = () => {
           <Col span={16} offset={4}>
             <>
               {search && <h1>找到{searchList.length}筆與{search}有關</h1>}
-              <BookList bookList={searchList} handleFavorite={handleAddToFavorite}/>
+              <BookList bookList={searchList} handleFavorite={handleFavoriteToggle}/>
             </>
           </Col>
         </Row>
