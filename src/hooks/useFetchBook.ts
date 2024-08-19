@@ -1,12 +1,11 @@
 import axios from "axios";
-import { bookDataType2 } from "../assets/data";
 import { useState } from "react";
+import { useBook } from "../components/BookContext";
 
 const useFetchBook = (apiEndpoint: string) => {
-  const [data, setData] = useState<bookDataType2[]>([]);
+  const { data, setData } = useBook();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
-
 
   const getData = () => {
     setLoading(true);
@@ -14,6 +13,7 @@ const useFetchBook = (apiEndpoint: string) => {
       .get(apiEndpoint)
       .then((res) => {
         setData(res.data);
+        localStorage.setItem("booksData", JSON.stringify(res.data));
         setLoading(false);
       })
       .catch((error) => {
@@ -22,6 +22,6 @@ const useFetchBook = (apiEndpoint: string) => {
       });
   };
 
-  return { data, loading, error, getData };
+  return { getData };
 };
 export default useFetchBook;

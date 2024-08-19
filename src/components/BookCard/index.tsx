@@ -1,13 +1,13 @@
 import { Row, Col } from "antd";
 import { Card } from 'antd';
-import { bookDataType2 } from "../../assets/data";
+import { bookDataType } from "../../assets/data";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import './bookCard.scss'
 import CustomLink from "../CustomLink";
 
 interface BookCardProps {
-  book: bookDataType2 & { isFavorite?: boolean };
-  handleFavorite: (book: bookDataType2) => void;
+  book: bookDataType & { isFavorite?: boolean };
+  handleFavorite: (book: bookDataType) => void;
 }
 
 const { Meta } = Card;

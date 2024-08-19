@@ -1,4 +1,4 @@
-export interface bookDataType2{
+export interface bookDataType{
     userId:number;
     id:number;
     title:string;

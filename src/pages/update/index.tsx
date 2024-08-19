@@ -1,86 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import { Row, Col, Button, Input, Image, message, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-import type { UploadProps } from 'antd';
 import './update.scss'
+import { useBook } from "../../components/BookContext";
+import { useParams,useNavigate } from "react-router-dom";
 
 
 const Update = () => {
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log('Change:', e.target.value);
-    };
-    const props: UploadProps = {
-        name: 'file',
-        action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-        headers: {
-            authorization: 'authorization-text',
-        },
-        onChange(info) {
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (info.file.status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully`);
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-    };
+  const { dataId } = useParams();
+  const { data, setData } = useBook();
+  const navigate = useNavigate();
 
-    const { TextArea } = Input;
+  //TextArea 是 Ant Design 中的 Input 組件的擴展，用於顯示多行文本輸入框。它與普通的 Input 組件類似，只是允許用戶輸入多行文本。
+  const { TextArea } = Input;
 
-    const [image, setImage] = useState('');
+  const parsedDataId = parseInt(dataId ?? "", 10);//轉成整數
+  const bookToUpdate = data.find(
+    (y) => y.id === parsedDataId
+  );
 
-    return (
-        <>
-            <Layout>
-                <Row>
-                    <Col span={24} className="title">
-                        <h1>Update BOOK</h1>
-                    </Col>
-                    <Col span={8} offset={8} className="imagePicker">
-                        <Row>
-                            <Col span={10} offset={4}>
-                                {image ?
-                                    <Image
-                                        preview={false}
-                                        src="error"
-                                        fallback="data:image/png;base64,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"
-                                    /> :
-                                    <Image
-                                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                    />}
-                            </Col>
-                            <Col span={2} offset={2} className="imagePicker__button">
-                                <Upload {...props}>
-                                    <Button icon={<UploadOutlined />}>Upload</Button>
-                                </Upload>
-                            </Col>
-                        </Row>
-                    </Col>
+  const [formData, setFormData] = useState({
+    userId: bookToUpdate?.userId || 1,
+    id: bookToUpdate?.id || 0,
+    title: bookToUpdate?.title || "",
+    body: bookToUpdate?.body || "",
+  });
 
-                    <Col span={6} offset={9} className="title__input">
-                        <Input showCount maxLength={20} onChange={onChange} />
-                    </Col>
-                    <Col span={8} offset={8} className="content__input">
-                        <TextArea
-                            showCount
-                            maxLength={100}
-                            onChange={onChange}
-                            placeholder="disable resize"
-                            style={{ height: 120, resize: 'none' }}
-                        />
-                    </Col>
-                    <Col span={8} offset={8} className="submitButton">
-                        <Button type="primary">Submit</Button>
-                    </Col>
+  useEffect(() => {
+    setFormData({
+      userId: bookToUpdate?.userId || 1,
+      id: bookToUpdate?.id || 0,
+      title: bookToUpdate?.title || "",
+      body: bookToUpdate?.body || "",
+    });
+  }, [bookToUpdate]);
 
-                </Row>
-            </Layout>
-        </>
-    );
+  //e 是表單輸入元素（如 input 或 textarea）的變更事件對象。
+  //React.ChangeEvent 是 React 特定的事件類型，它封裝了原生的 DOM 事件，並且可以用來處理不同類型的表單元素。
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+    //e.target 是觸發事件的 DOM 元素，name 是該元素的 name 屬性，value 是該元素的當前值。
+    const { name, value } = e.target;
+
+    //name 是從事件對象中解構出來的，它代表了表單輸入元素的 name 屬性。這個 name 屬性可以是 "title"、"body"、"userId" 等。
+    //計算屬性名 是一種 JavaScript 語法，允許你在對象字面量中動態設置屬性名稱。這裡的 [name]: value 意味著根據 name 的值來動態地設置對象的屬性。
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    if (formData.title && formData.body) {
+      
+      //book.id === parsedDataId：這個條件用來檢查當前遍歷的書籍是否是我們要更新的書籍。
+      //{ ...book, ...formData }：如果條件為真，則將當前書籍對象展開，並用 formData 中的新值覆蓋原有值，生成一個新的書籍對象。
+      const updatedData = data.map(book =>
+        book.id === parsedDataId ? { ...book, ...formData } : book
+      );
+      setData(updatedData);
+      localStorage.setItem('booksData', JSON.stringify(updatedData));
+      message.success('Book updated successfully!');
+      navigate('/');  // 或者你想要導航到的頁面
+    }
+  };
+
+  return (
+    <>
+      <Layout>
+        <Row>
+          <Col span={24} className="title">
+            <h1>UPDATE BOOK</h1>
+          </Col>
+          <Col span={8} offset={8} className="imagePicker">
+            <Row>
+              <Col span={10} offset={4}>
+                  <Image
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                  />
+              </Col>
+              <Col span={2} offset={2} className="imagePicker__button">
+                <Upload>
+                  <Button icon={<UploadOutlined />}>Upload</Button>
+                </Upload>
+              </Col>
+            </Row>
+          </Col>
+
+          <Col span={6} offset={9} className="title__input">
+            <Input showCount maxLength={100} name="title" value={formData.title} onChange={handleChange}  />
+          </Col>
+          <Col span={8} offset={8} className="content__input">
+            <TextArea
+              showCount
+              maxLength={400}
+              name="body"
+              value={formData.body}
+              onChange={handleChange}
+              placeholder="Enter content here"
+              style={{ height: 120, resize: 'none' }}
+            />
+          </Col>
+          <Col span={8} offset={8} className="submitButton">
+            <Button type="primary" onClick={handleSubmit}>Submit</Button>
+          </Col>
+        </Row>
+      </Layout>
+    </>
+  );
 }
 
 export default Update;
