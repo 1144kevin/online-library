@@ -32,7 +32,7 @@ const Home = () => {
     } else {
       getData();
     }
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     const filteredList = data.filter((book) =>
