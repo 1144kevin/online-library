@@ -1,16 +1,63 @@
 .searchLine {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .sort {
-  margin-right: 40px;
-  background-color: #000000; // 按鈕被選中時的顏色
-  border-color: hwb(0 74% 26%);
+  background-color: #fff; // 按鈕被選中時的顏色
+  color: #000;
+  border-color: #000000;
+
 
   &__reverse {
-    margin-right: 40px;
-    background-color: hwb(0 74% 26%); // 按鈕被選中時的顏色
-    border-color: hwb(0 100% 0%);
+    background-color: #ffd500 !important; // 按鈕被選中時的顏色
+    color: #000;
+    border-color: #000;
   }
+}
+
+.ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+  background: none;
+}
+
+.ant-btn-variant-solid:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #000;
+}
+
+.ant-switch.ant-switch-checked {
+  background: #ffd500;
+}
+
+.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background: #dfba00;
+}
+
+.ant-input-outlined {
+  &:hover {
+    border-color: #000;
+  }
+
+  &:focus {
+    border-color: #000;
+  }
+}
+
+.ant-btn-variant-outlined {
+  &:not(:disabled):not(.ant-btn-disabled):hover {
+    border-color: #000;
+  }
+}
+
+.ant-input-search-button:not(.ant-btn-primary):hover {
+  border-color: #000;
+}
+
+.ant-input-outlined:focus-within {
+  border-color: #000;
+}
+
+.ant-input-search >.ant-input-group >.ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary):hover {
+  color: #000;
 }

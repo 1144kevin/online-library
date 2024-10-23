@@ -8,11 +8,12 @@ import { RootState } from "../../redux/store";
 
 const Favorite = () => {
   const bookList = useSelector((state: RootState) => state.book.book);
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   const dispatch = useDispatch();
 
   const handleRemoveFromFavorite = (book: bookDataType) => {
-    dispatch(removeFromFavorite(book))
+    dispatch(removeFromFavorite(book));
   };
 
   return (
@@ -22,9 +23,19 @@ const Favorite = () => {
           <Col span={24} className="title">
             <h1>Favorite</h1>
           </Col>
-          <Col span={16} offset={4}>
+          <Col
+            span={16}
+            offset={4}
+            style={{
+              backgroundColor: isDarkMode ? "#000" : "#fff",
+              minHeight: "100vh",
+            }}
+          >
             <>
-              <BookList bookList={bookList} handleFavorite={handleRemoveFromFavorite} />
+              <BookList
+                bookList={bookList}
+                handleFavorite={handleRemoveFromFavorite}
+              />
             </>
           </Col>
         </Row>

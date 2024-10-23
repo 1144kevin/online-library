@@ -3,15 +3,12 @@ import './App.scss';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from '../src/redux/store';
 import Router from './router';
-import { BookProvider } from './components/BookContext';
 
 const App = () => {
   return (
-    <BookProvider>
       <ReduxProvider store={store}>
         <Router />
       </ReduxProvider>
-    </BookProvider>
   );
 }
 

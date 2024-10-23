@@ -1,6 +1,7 @@
 export interface bookDataType{
     userId:number;
-    id:number;
+    id:string;
+    image:string;
     title:string;
     body:string;
 }

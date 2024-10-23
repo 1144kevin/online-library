@@ -37,9 +37,17 @@ const favoriteSlice = createSlice({
       state.book = state.book.filter(
         (x) => x.id !== action.payload.id
       );
+    },
+    updateFavorite: (state, action: PayloadAction<bookDataType>) => {
+      const index = state.book.findIndex(
+        (favoriteBook) => favoriteBook.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.book[index] = action.payload;
+      }
     }
   }
 })
 
 export default favoriteSlice.reducer;
-export const { addToFavorite, removeFromFavorite } = favoriteSlice.actions;
+export const { addToFavorite, removeFromFavorite, updateFavorite } = favoriteSlice.actions;

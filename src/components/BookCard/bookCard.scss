@@ -1,8 +1,8 @@
 .icon {
   position: absolute;
   top: 20px;
-  right: 60px;
-  z-index: 0;
+  right: 20px;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,4 +15,14 @@
   &__image {
     color: #000000;
   }
+}
+
+.card {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.content { 
+  text-align: center;
+  white-space: nowrap;
 }

@@ -24,7 +24,7 @@ const BookList = ({ bookList, handleFavorite }: BookListProps) => {
   }));
 
   return (
-    <Row>
+    <Row style={{width:'100%', display:'flex', justifyContent:'center'}}>
       {processedBookList.map((book) => (
         <Col md={12} xl={8} xxl={6} key={book.id} className="book">
           <BookCard book={book} handleFavorite={handleFavorite} />

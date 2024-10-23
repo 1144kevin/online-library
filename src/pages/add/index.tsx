@@ -1,75 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../Layout";
 import { Row, Col, Button, Input, Image, message, Upload } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import './add.scss';
+import { UploadOutlined } from "@ant-design/icons";
+import "./add.scss";
 import { bookDataType } from "../../assets/data";
-import { useBook } from "../../components/BookContext";
+import { getBookData, addBookData } from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
-const Add = () => {
-
+function Add() {
   const [formData, setFormData] = useState({
     userId: 1,
-    id: 0,
+    id: "1",
+    image: "",
     title: "",
     body: "",
   });
-  const { data, setData } = useBook();
+
   const { title, body } = formData;
   const { TextArea } = Input;
+  const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    getBookData();
+  }, []);
+
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ){
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  //e 是表單提交事件對象。React.FormEvent 是一個泛型，這裡用來描述來自 <form> 元素的提交事件。
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUploadChange = (info: any) => {
+    const file = info.file.originFileObj;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        console.log("base64Image", base64Image);
 
-    //這行代碼用來阻止表單的默認提交行為，防止頁面刷新。這樣可以在前端處理表單數據，而不會觸發頁面的重載。
-    e.preventDefault();
-
-    //...data.map((item: bookDataType) => item.id)：這部分代碼將 data 中的每個書籍對象的 id 屬性提取出來，形成一個 id 值的陣列。
-    const maxId = data.length > 0 ? Math.max(...data.map((item: bookDataType) => item.id)) : 0;
-    const newId = maxId + 1;
-
-    //這行代碼創建了一個新的對象 newFormData，這個對象基於 formData，但會將 id 屬性的值更新為 newId。
-    const newFormData = { ...formData, id: newId };
-
-    if (newId && title && body) {
-
-      //將 newFormData 新增到 data 陣列的末尾
-      const updatedData = [...data, newFormData];
-      setData(updatedData);
-      localStorage.setItem('booksData', JSON.stringify(updatedData));
-      setFormData({ userId: 1, id: 0, title: "", body: "" });
-      message.success('Book added successfully!');
+        // Check if the image is already set to avoid multiple success messages
+        if (!formData.image) {
+          setFormData((prevData) => ({ ...prevData, image: base64Image }));
+          message.success(`${info.file.name} 文件已準備好`);
+        } else {
+          setFormData((prevData) => ({ ...prevData, image: base64Image }));
+        }
+      };
+      reader.onerror = () => {
+        message.error(`${info.file.name} 文件讀取失敗`);
+      };
+      reader.readAsDataURL(file);
     }
   };
+
+  async function handleSubmit(book: bookDataType) {
+    console.log("book", book);
+    const request = {
+      ...book,
+      id: uuidv4(), // 自動生成一個新的 'id' 並轉成字串
+    };
+    await addBookData(request);
+    message.success("新增成功"); // 顯示新增成功的訊息
+    navigate(`/`); // 跳回首頁
+  }
 
   return (
     <>
       <Layout>
-        <Row>
+        <Row className="add">
           <Col span={24} className="title">
-            <h1>ADD BOOK</h1>
+            <h1>Add Book</h1>
           </Col>
           <Col span={8} offset={8} className="imagePicker">
-            <Row>
-              <Col span={10} offset={4}>
-                <Image
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            <Row style={{display: "flex", justifyContent: "center"}}>
+              <Col>
+              {formData.image===""?
+                <Image 
+                  src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" 
+                  alt=""
+                  preview={false}
+                  height={200}
+                  width={200}
+                  style={{objectFit: "cover"}}
                 />
+                :
+                <Image src={formData.image} alt="Uploaded book cover" height={200} width={200} style={{objectFit: "cover"}}/>}
               </Col>
-              <Col span={2} offset={2} className="imagePicker__button">
-                <Upload>
+              <Col offset={2} className="imagePicker__button">
+                <Upload
+                  name="image"
+                  onChange={handleUploadChange}
+                  showUploadList={false}
+                >
                   <Button icon={<UploadOutlined />}>Upload</Button>
                 </Upload>
               </Col>
             </Row>
           </Col>
 
-          <Col span={6} offset={9} className="title__input">
-            <Input name="title" showCount maxLength={100} value={title} onChange={handleChange} />
+          <Col span={8} offset={8} className="title__input">
+            <Input
+              name="title"
+              showCount
+              maxLength={100}
+              value={title}
+              onChange={handleChange}
+            />
           </Col>
           <Col span={8} offset={8} className="content__input">
             <TextArea
@@ -79,17 +116,21 @@ const Add = () => {
               name="body"
               value={body}
               onChange={handleChange}
-              style={{ height: 120, resize: 'none' }}
+              style={{ height: 120, resize: "none" }}
             />
           </Col>
-          <Col span={8} offset={8} className="submitButton">
-            <form onSubmit={handleSubmit}>
+          <Col span={8} offset={8} className="submitButton" style={{minHeight: "30vh"}}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(formData);
+              }}
+            >
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
             </form>
           </Col>
-
         </Row>
       </Layout>
     </>

@@ -9,3 +9,29 @@
   justify-content: center;
   width: 150px;
 }
+
+.ant-menu-dark {
+  background-color: #000 !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+  color: #000;
+  background-color: #ffd500;
+
+  &:hover {
+    color: #000;
+    background-color: #fff;
+  }
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected {
+  color: #000;
+
+  &::after {
+    border-color: #000;
+  }
+}
+
+.ant-menu-light.ant-menu-horizontal >.ant-menu-item:hover::after {
+  border-color: #ffd500;
+}

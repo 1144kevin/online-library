@@ -1,3 +1,4 @@
+
 @mixin marginBottom {
   margin-bottom: 4rem;
 }
@@ -8,8 +9,6 @@
 
 .imagePicker {
   @include marginBottom;
-  display: flex;
-  justify-content: center;
 
   &__button {
     align-content: flex-end;

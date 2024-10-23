@@ -9,6 +9,7 @@
 }
 
 .layout {
+  @include flex__center;
   padding: 10rem;
 }
 
@@ -29,4 +30,9 @@
 .buttonContainer {
   @include flex__center;
   justify-content: end;
+}
+
+.loading {
+  @include flex__center;
+  height: 500px;
 }

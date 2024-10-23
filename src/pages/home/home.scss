@@ -6,3 +6,11 @@
 .searchBar {
   margin-bottom: 50px;
 }
+
+.loading {
+  height: 50vh;
+}
+
+.ant-spin-dot-item {
+  background-color: var(--spin-dot-color) !important;
+}
