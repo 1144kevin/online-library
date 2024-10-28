@@ -1,10 +1,6 @@
-.add {
-  @mixin marginBottom {
-    margin-bottom: rem;
-  }
 
-  .title {
-    @include marginBottom;
+  @mixin marginBottom {
+    margin-bottom: 4rem;
   }
 
   .imagePicker {
@@ -37,4 +33,4 @@
       border-color: #000;
     }
   }
-}
+

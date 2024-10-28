@@ -16,7 +16,7 @@ const { Meta } = Card;
 const BookCard = ({ book, handleFavorite }: BookCardProps) => {
   // const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); // Get the theme state
   return (
-    <Row >
+    <Row className="bookCard">
       <Col >
         <CustomLink to={`detail/id/${book.id}`}>
           <Card

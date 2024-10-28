@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: center;
 }
-@mixin margin {
+@mixin space {
   margin-bottom: 3rem;
+  padding-inline: 3rem
 }
 
 .layout {
@@ -15,16 +16,17 @@
 
 .image {
   @include flex__center;
-  @include margin;
+  
 }
 
 .title {
   @include flex__center;
+  padding-inline: 3rem;
 }
 
 .content {
   @include flex__center;
-  @include margin;
+  @include space;
 }
 
 .buttonContainer {
@@ -34,5 +36,6 @@
 
 .loading {
   @include flex__center;
+  width: 100%;
   height: 500px;
 }

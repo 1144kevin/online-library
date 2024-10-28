@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Switch, Row, Col, ConfigProvider, Button } from "antd";
+import { Input, Switch, Row, Col, Button } from "antd";
 import "./searchBar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../../redux/themeSlice";
