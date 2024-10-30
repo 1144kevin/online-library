@@ -3,6 +3,7 @@ export interface commentDataType{
     commentId:string;
     userName:string;
     description:string;
+    rating:number;
 }
 
 export interface bookDataType{
@@ -12,4 +13,5 @@ export interface bookDataType{
     title:string;
     body:string;
     comments?:commentDataType[];
+    totalRating?:number;
 }

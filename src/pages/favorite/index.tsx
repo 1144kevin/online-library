@@ -5,6 +5,7 @@ import { Col, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromFavorite } from "../../redux/favoriteSlice";
 import { RootState } from "../../redux/store";
+import TimelineAnimation from "../../components/ScrollBall/scrollBall";
 
 const Favorite = () => {
   const bookList = useSelector((state: RootState) => state.book.book);
@@ -19,17 +20,21 @@ const Favorite = () => {
   return (
     <>
       <Layout>
-        <Row>
+        <Row 
+        style={{
+              backgroundColor: isDarkMode ? "#000" : "#fff",
+              minHeight: "100vh",
+            }}>
           <Col span={24} className="title">
             <h1>Favorite</h1>
+          </Col>
+          <Col style={{width:"100%",display:"flex",justifyContent:"center"}}>
+          <TimelineAnimation/>
           </Col>
           <Col
             span={16}
             offset={4}
-            style={{
-              backgroundColor: isDarkMode ? "#000" : "#fff",
-              minHeight: "100vh",
-            }}
+
           >
             <>
               <BookList

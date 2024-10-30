@@ -39,3 +39,37 @@
   width: 100%;
   height: 500px;
 }
+
+.darkMode {
+  .ant-pagination .ant-pagination-disabled .ant-pagination-item-link {
+    color: #fff ;
+  }
+  .ant-pagination .ant-pagination-item-active a {
+    color: #000;
+  }
+  .ant-pagination .ant-pagination-item-active {
+    border-color: #000;
+  }
+  .ant-pagination .ant-pagination-next button {
+    color: #fff;
+  }
+  .ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover{
+  transform: scale(1.1);
+    background-color: #fff;
+  }
+  .ant-list-split .ant-list-item {
+    border-block-end: 1px solid rgba(227, 227, 227, 0.241);
+  }
+  .ant-rate-star-full {
+      color: #ffd500;
+  }
+  .ant-rate-star-zero {
+    color: #b4b4b46b;
+  }
+  .ant-rate .ant-rate-star-first {
+    color:inherit;
+  }
+  .ant-rate .ant-rate-star-second {
+    color:inherit;
+  }
+}

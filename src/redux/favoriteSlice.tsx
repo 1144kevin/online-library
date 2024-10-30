@@ -39,7 +39,7 @@ const favoriteSlice = createSlice({
       );
     },
     updateFavorite: (state, action: PayloadAction<bookDataType>) => {
-      const index = state.book.findIndex(
+      const index = state.book.findIndex(//index 會保存符合條件的書籍在數組中的索引位置。如果找不到，則返回 -1
         (favoriteBook) => favoriteBook.id === action.payload.id
       );
       if (index !== -1) {

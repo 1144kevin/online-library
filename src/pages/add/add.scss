@@ -1,6 +1,21 @@
-
   @mixin marginBottom {
     margin-bottom: 4rem;
+  }
+
+  label{
+    color: #000;
+    background-color: #fff;
+    display: block;
+    padding:0.3rem 0.8rem 0.3rem 0.8rem;
+    font-family: sans-serif;
+    border: #000 solid .1rem ;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #ffd500;
+      border-color: #ffd500;
+    }
   }
 
   .imagePicker {
@@ -30,7 +45,7 @@
     color: #000;
 
     &:hover {
+      background-color: #fff !important;
       border-color: #000;
     }
   }
-

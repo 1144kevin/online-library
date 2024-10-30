@@ -10,7 +10,7 @@ import { Avatar, List, Input, Button, Rate, Row, Col, message } from "antd";
 import { updateBookData } from "../../api/api";
 import { bookDataType } from "../../assets/data";
 import { RootState } from "../../redux/store";
-import { toggleLike, setRating } from "../../redux/commentSlice";
+import { toggleLike } from "../../redux/commentSlice";
 import "./comment.scss";
 import { v4 as uuidv4 } from "uuid";
 
@@ -19,78 +19,108 @@ const faceImage = Array.from({ length: 6 }).map((_, i) => ({
   avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=${i}`,
 }));
 
-function Comment({ book }: { book: bookDataType }) {
+function Comment({
+  book,
+  onRatingUpdate,
+}: {
+  book: bookDataType;
+  onRatingUpdate: () => void;
+}) {
   const { TextArea } = Input;
   const dispatch = useDispatch();
   const likedComments = useSelector(
     (state: RootState) => state.comment.likedComments
   );
-  const ratings = useSelector((state: RootState) => state.comment.ratings);
   const [data, setData] = useState<bookDataType>(book);
   const [comments, setComments] = useState(data.comments || []);
   const [newComment, setNewComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
   const [editedContent, setEditedContent] = useState<string>("");
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); 
+  const [currentRating, setCurrentRating] = useState<number>(0);
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
-  async function handleAddComment() {
+  function handleAddComment() {
     const randomNumber = Math.floor(Math.random() * 6);
-    try {
-      const newCommentData = {
-        userImage: faceImage[randomNumber].avatar,
-        commentId: uuidv4(),
-        userName: `user${randomNumber + 1}`,
-        description: newComment,
-      };
-      console.log("newCommentData", newCommentData);
-      const newData = {
-        ...data,
-        comments: [...comments, newCommentData],
-      };
-      await updateBookData(newData);
-      setData(newData);
-      setComments(newData.comments);
-      setNewComment("");
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      message.error("Error adding comment");
-    }
+    const newCommentData = {
+      userImage: faceImage[randomNumber].avatar,
+      commentId: uuidv4(),
+      userName: `user${randomNumber + 1}`,
+      description: newComment,
+      rating: currentRating,
+    };
+
+    const newData = {
+      ...data,
+      comments: [...comments, newCommentData],
+      totalRating: (data.totalRating || 0) + currentRating,
+    };
+    
+    updateBookData(newData);
+    message.success('評論新增成功')
+    setData(newData);
+    setComments(newData.comments);
+    setNewComment("");
+    setCurrentRating(0);
+    // 通知 Detail 組件更新 totalRating
+    onRatingUpdate();
   }
 
-  async function handleDeleteComment(commentId: string) {
+  function handleDeleteComment(commentId: string) {
+    const commentToDelete = comments.find(
+      (comment) => comment.commentId === commentId
+    );
     const newData = {
       ...data,
       comments: comments.filter((comment) => comment.commentId !== commentId),
+      totalRating: (data.totalRating || 0) - (commentToDelete?.rating || 0),
     };
-    await updateBookData(newData);
+    updateBookData(newData);
+    message.success('評論刪除成功')
     setData(newData);
     setComments(newData.comments);
+    // 通知 Detail 組件更新 totalRating
+    onRatingUpdate();
   }
 
   function handleEditClick(commentId: string, currentContent: string) {
     setEditingCommentId(commentId);
     setEditedContent(currentContent);
+    setCurrentRating(
+      data.comments?.find((comment) => comment.commentId === commentId)?.rating || 0
+    );
   }
 
-  async function handleSaveEdit(commentId: string) {
+  function handleSaveEdit(commentId: string) {
+    const commentToEdit = comments.find(
+      (comment) => comment.commentId === commentId
+    );
     const updatedComments = comments.map((comment) =>
       comment.commentId === commentId
-        ? { ...comment, description: editedContent }
+        ? { ...comment, description: editedContent, rating: currentRating }
         : comment
     );
-    const newData = { ...data, comments: updatedComments };
-    await updateBookData(newData);
+    const newData = {
+      ...data,
+      comments: updatedComments,
+      totalRating:
+        (data.totalRating || 0) - (commentToEdit?.rating || 0) + currentRating,
+    };
+    updateBookData(newData);
+    message.success('修改完成')
     setData(newData);
     setComments(updatedComments);
     setEditingCommentId(null);
+    setCurrentRating(0);
+    // 通知 Detail 組件更新 totalRating
+    onRatingUpdate();
   }
 
   function handleToggleLike(commentId: string) {
     dispatch(toggleLike(commentId));
   }
 
-  function handleRatingChange(commentId: string, value: number) {
-    dispatch(setRating({ commentId, rating: value }));
+  function handleRatingChange(value: number) {
+    setCurrentRating(value);
   }
 
   return (
@@ -98,9 +128,6 @@ function Comment({ book }: { book: bookDataType }) {
       itemLayout="vertical"
       size="small"
       pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
         pageSize: 3,
       }}
       dataSource={comments}
@@ -112,7 +139,7 @@ function Comment({ book }: { book: bookDataType }) {
                 rows={4}
                 value={editedContent}
                 style={{
-                  backgroundColor: "#fff"
+                  backgroundColor: "#fff",
                 }}
                 onChange={(e) => setEditedContent(e.target.value)}
               />
@@ -142,10 +169,8 @@ function Comment({ book }: { book: bookDataType }) {
             >
               <p style={{ color: isDarkMode ? "#fff" : "#000" }}>評分</p>
               <Rate
-                allowHalf
-                defaultValue={2.5}
-                disabled={!!editingCommentId}
-                onChange={(value) => handleRatingChange(editingCommentId!, value)}
+                value={currentRating}
+                onChange={(value) => handleRatingChange(value)}
               />
             </div>
             {editingCommentId ? (
@@ -196,17 +221,26 @@ function Comment({ book }: { book: bookDataType }) {
             />,
           ]}
         >
-          <List.Item.Meta
-            avatar={<Avatar src={item.userImage} />}
-            title={<span style={{ color: isDarkMode ? "#fff" : "#000" }}>{item.userName}</span>}
-            description={<span style={{ color: isDarkMode ? "#fff" : "#000" }}>{item.description}</span>}
-          />
-          <Rate
-            allowHalf
-            value={ratings[item.commentId] || 0}
-            onChange={(value) => handleRatingChange(item.commentId, value)}
-            disabled={!!editingCommentId && editingCommentId !== item.commentId}
-          />
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <List.Item.Meta
+              avatar={<Avatar src={item.userImage} />}
+              title={
+                <span style={{ color: isDarkMode ? "#fff" : "#000" }}>
+                  {item.userName}
+                </span>
+              }
+              description={
+                <span style={{ color: isDarkMode ? "#fff" : "#000" }}>
+                  {item.description}
+                </span>
+              }
+            />
+            <Rate
+              value={item.rating}
+              onChange={(value) => handleRatingChange(value)}
+              disabled={true}
+            />
+          </div>
         </List.Item>
       )}
     />

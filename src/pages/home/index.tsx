@@ -9,6 +9,12 @@ import { addToFavorite, removeFromFavorite } from "../../redux/favoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getBookData } from "../../api/api";
+// @ts-ignore
+import { gsap } from "gsap";
+// @ts-ignore
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const [data, setData] = useState<bookDataType[]>([]);
@@ -25,15 +31,23 @@ const Home = () => {
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); // Get the theme state
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    async function fetchBooks(){
       setLoading(true);
-      const allBooks = await getBookData();
+      const allBooks =await getBookData();
       setData(allBooks);
-      setLoading(false);
       setTimeout(() => setLoading(false), 500);
     };
 
     fetchBooks();
+
+    ScrollTrigger.create({
+      start: 'top -20',
+      end: 99999,
+      toggleClass: { className: 'custom-menu--scrolled', targets: '.custom-menu' }
+    });
+    // 清除 ScrollTrigger，防止內存洩漏
+    return () => ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill());
+
   }, []);
 
   const handleSearch = (value: string) => {

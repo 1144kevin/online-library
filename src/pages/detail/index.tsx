@@ -9,14 +9,14 @@ import { useEffect, useState } from "react";
 import { bookDataType } from "../../assets/data";
 import { RootState } from "../../redux/store";
 import Comment from "../../components/Comment/comment";
+import { StarFilled } from "@ant-design/icons";
 
 function Detail() {
-  const { dataId } = useParams();
+  const { dataId } = useParams(); //用來獲取 URL 中的 dataId
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [data, setData] = useState<bookDataType[]>([]);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  const ratings = useSelector((state: RootState) => state.comment.ratings);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,20 +26,24 @@ function Detail() {
   }, []);
 
   const book = data.find((y) => y.id === dataId);
-  const totalRating = book?.comments?.reduce((acc, comment) => acc + (ratings[comment.commentId] || 0), 0) || 0;
 
-  const handleDelete = async () => {
-    await deleteBookData(dataId!);
+  function handleDelete() {
+    deleteBookData(dataId!);
     //用來測試每個陣列元素。返回值是 true 的元素會被包括在新的陣列中，返回值是 false 的元素則被排除。
     const updatedData = data.filter((item) => item.id !== dataId);
     // 更新狀態
     setData(updatedData);
-    // 如果找到對應的書籍，則從收藏中移除該書籍
+
     if (book) {
       dispatch(removeFromFavorite(book));
     }
-    message.success("刪除成功"); // 顯示刪除成功的訊息
+    message.success("刪除成功");
     navigate("/");
+  }
+
+  async function handleRatingUpdate(){
+    const updatedData = await getBookData(); 
+    setData(updatedData);
   };
 
   return (
@@ -69,10 +73,24 @@ function Detail() {
                   alt="book"
                 />
               </Col>
-              <Col span={24} className="title">
-                <h2>{book?.title} - Total Rating: {totalRating}</h2>
+              <Col
+                span={24}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 5,
+                  justifyContent: "flex-end",
+                  paddingInline: "1rem",
+                  marginTop: "0.5rem",
+                }}
+              >
+                <StarFilled style={{ color: "#ffd700", fontSize: 20 }} />
+                <h2 style={{ margin: 0 }}>{book?.totalRating}</h2>
               </Col>
-              <Col span={24} className="content" >
+              <Col span={24} className="title">
+                <h2 style={{ margin: 0 }}>{book?.title}</h2>
+              </Col>
+              <Col span={24} className="content">
                 <p>{book?.body}</p>
               </Col>
               <Col span={4} offset={20} className="buttonContainer">
@@ -85,8 +103,10 @@ function Detail() {
               </Col>
             </Row>
           </Col>
-          <Col span={8} offset={2}>
-            {book && <Comment book={book} />}
+          <Col span={8} offset={2} className={isDarkMode ? "darkMode" : ""}>
+            {book && (
+              <Comment book={book} onRatingUpdate={handleRatingUpdate} />
+            )}
           </Col>
         </>
       )}

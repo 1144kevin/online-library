@@ -58,8 +58,8 @@ const Update = () => {
     if (formData.title && formData.body) {
       updateBookData(formData).then((updatedBook) => {
         message.success("更新成功");
-        dispatch(updateFavorite(updatedBook)); // 更新 Redux store
-        navigate("/"); // 或者你想要導航到的頁面
+        dispatch(updateFavorite(updatedBook)); // 更新 Redux store，讓redux的資料同步
+        navigate(-1); 
       });
     }
   };

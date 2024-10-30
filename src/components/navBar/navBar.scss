@@ -1,5 +1,15 @@
 .custom-menu {
-  width: fit-content;
+  height:50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  z-index: 111;
+  transition: ease 0.4s;
+  &--scrolled {
+    height: 35px;
+  }
 }
 
 .custom-menu li {
