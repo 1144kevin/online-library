@@ -63,7 +63,7 @@ function Add() {
       <Layout>
         <Row className="add">
           <Col span={24} className="title">
-            <h1>Add Book</h1>
+            <h1>Add</h1>
           </Col>
           <Col span={8} offset={8} className="imagePicker">
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -124,7 +124,7 @@ function Add() {
             span={8}
             offset={8}
             className="submitButton"
-            style={{ minHeight: "30vh" }}
+            style={{ minHeight: "35vh" }}
           >
             <Button
               type="primary"

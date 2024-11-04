@@ -1,10 +1,10 @@
 import { useLayoutEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Home from "./pages/home";
-import Detail from "./pages/detail";
-import Favorite from "./pages/favorite";
-import Add from "./pages/add";
-import Update from "./pages/update";
+import Home from "./pages/home/home";
+import Detail from "./pages/detail/detail";
+import Favorite from "./pages/favorite/favorite";
+import Add from "./pages/add/add";
+import Update from "./pages/update/update";
 
 export default function Router() {
 

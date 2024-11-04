@@ -11,7 +11,7 @@
 
 .layout {
   @include flex__center;
-  padding: 10rem;
+  padding: 5rem 10rem 20rem 10rem;
 }
 
 .image {
@@ -20,7 +20,8 @@
 }
 
 .title {
-  @include flex__center;
+  display: flex;
+  justify-content: center;
   padding-inline: 3rem;
 }
 

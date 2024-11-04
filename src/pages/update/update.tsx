@@ -111,7 +111,7 @@ const Update = () => {
             span={8}
             offset={8}
             className="submitButton"
-            style={{ minHeight: "30vh" }}
+            style={{ minHeight: "35vh" }}
           >
             <Button type="primary" onClick={handleSubmit}>
               Submit

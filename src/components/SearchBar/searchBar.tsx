@@ -7,7 +7,7 @@ import { RootState } from "../../redux/store";
 
 const { Search } = Input;
 interface SearchBarProps {
-  onSearch: (value: string) => void;
+  onSearch?: (value: string) => void;
   onSortAZ: () => void;
   onSortZA: () => void;
 }

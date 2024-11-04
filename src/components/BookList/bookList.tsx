@@ -1,5 +1,5 @@
 import { Row, Col, } from "antd";
-import BookCard from "../BookCard";
+import BookCard from "../BookCard/bookCard";
 import { bookDataType } from "../../assets/data";
 import './bookList.scss'
 import { useSelector } from "react-redux";

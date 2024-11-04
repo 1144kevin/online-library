@@ -24,7 +24,7 @@ function Comment({
   onRatingUpdate,
 }: {
   book: bookDataType;
-  onRatingUpdate: () => void;
+  onRatingUpdate: (updatedRating: number) => void;
 }) {
   const { TextArea } = Input;
   const dispatch = useDispatch();
@@ -61,8 +61,9 @@ function Comment({
     setComments(newData.comments);
     setNewComment("");
     setCurrentRating(0);
+    console.log("totalRating2222",newData.totalRating)
     // 通知 Detail 組件更新 totalRating
-    onRatingUpdate();
+    onRatingUpdate(newData.totalRating);
   }
 
   function handleDeleteComment(commentId: string) {
@@ -79,7 +80,7 @@ function Comment({
     setData(newData);
     setComments(newData.comments);
     // 通知 Detail 組件更新 totalRating
-    onRatingUpdate();
+    onRatingUpdate(newData.totalRating);
   }
 
   function handleEditClick(commentId: string, currentContent: string) {
@@ -112,7 +113,7 @@ function Comment({
     setEditingCommentId(null);
     setCurrentRating(0);
     // 通知 Detail 組件更新 totalRating
-    onRatingUpdate();
+    onRatingUpdate(newData.totalRating);
   }
 
   function handleToggleLike(commentId: string) {

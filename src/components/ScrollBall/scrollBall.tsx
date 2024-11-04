@@ -26,31 +26,31 @@ function TimelineAnimation() {
       .to(".ball04, .text03", {}, 0.46);
 
     // Main animation timeline with ScrollTrigger
-    const main = gsap
-      .timeline({
-        defaults: { duration: 1 },
-        scrollTrigger: {
-          trigger: "#svg-stage",
-          scrub: true,
-          start: "top center",
-          end: "bottom center",
-        },
-      })
-      .to(".ball01", { duration: 0.01, autoAlpha: 1 })
-      .from(".theLine", { drawSVG: 0 }, 0)
-      .to(
-        ".ball01",
-        {
-          motionPath: {
-            path: ".theLine",
-            align: ".theLine",
-            alignOrigin: [0.5, 0.5],
-          },
-          rotation: 180, // 讓圖標旋轉 90 度
-        },
-        0
-      )
-      .add(pulses, 0);
+    // const main = gsap
+    //   .timeline({
+    //     defaults: { duration: 1 },
+    //     scrollTrigger: {
+    //       trigger: "#svg-stage",
+    //       scrub: true,
+    //       start: "top center",
+    //       end: "bottom center",
+    //     },
+    //   })
+    //   .to(".ball01", { duration: 0.01, autoAlpha: 1 })
+    //   .from(".theLine", { drawSVG: 0 }, 0)
+    //   .to(
+    //     ".ball01",
+    //     {
+    //       motionPath: {
+    //         path: ".theLine",
+    //         align: ".theLine",
+    //         alignOrigin: [0.5, 0.5],
+    //       },
+    //       rotation: 180, // 讓圖標旋轉 90 度
+    //     },
+    //     0
+    //   )
+    //   .add(pulses, 0);
 
     // 清理 ScrollTrigger
     return () => {
@@ -59,18 +59,17 @@ function TimelineAnimation() {
   }, []);
 
   return (
-    <div className="timeline-animation">
-      <h1 className="header-section">Scroll to see a timeline animation</h1>
+    <div className="timeline-animation" style={{width:"600px",position:"absolute",margin:"0px"}}>
       <svg
         id="svg-stage"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 600 1200"
+        viewBox="0 0 500 1200"
       >
-        <path className="line01 line" d="M 10 200 600 200" />
+        {/* <path className="line01 line" d="M 10 200 600 200" />
         <path className="line02 line" d="M 10 400 600 400" />
         <path className="line03 line" d="M 10 600 600 600" />
         <path className="line04 line" d="M 10 800 600 800" />
-        <path className="line05 line" d="M 10 1000 600 1000" />
+        <path className="line05 line" d="M 10 1000 600 1000" /> */}
         <text className="text01" x="30" y="190">
           2018
         </text>
@@ -104,9 +103,9 @@ function TimelineAnimation() {
           y="100"
         />
         {/* <circle className="ball ball01" r="20" cx="50" cy="100"></circle> */}
-        <circle className="ball ball02" r="20" cx="278" cy="201"></circle>
+        {/* <circle className="ball ball02" r="20" cx="278" cy="201"></circle>
         <circle className="ball ball03" r="20" cx="327" cy="401"></circle>
-        <circle className="ball ball04" r="20" cx="203" cy="601"></circle>
+        <circle className="ball ball04" r="20" cx="203" cy="601"></circle> */}
       </svg>
     </div>
   );

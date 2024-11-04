@@ -3,7 +3,7 @@ import { Card } from "antd";
 import { bookDataType } from "../../assets/data";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import "./bookCard.scss";
-import CustomLink from "../CustomLink";
+import CustomLink from "../CustomLink/customLink";
 // import { useSelector } from "react-redux";
 // import { RootState } from "../../redux/store";
 

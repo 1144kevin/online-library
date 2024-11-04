@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Layout from "../../Layout";
-import SearchBar from "../../components/SearchBar";
-import BookList from "../../components/BookList";
+import SearchBar from "../../components/SearchBar/searchBar";
+import BookList from "../../components/BookList/bookList";
 import { Row, Col, Spin } from "antd";
 import { bookDataType } from "../../assets/data";
 import "./home.scss";
@@ -9,18 +9,12 @@ import { addToFavorite, removeFromFavorite } from "../../redux/favoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getBookData } from "../../api/api";
-// @ts-ignore
-import { gsap } from "gsap";
-// @ts-ignore
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
   const [data, setData] = useState<bookDataType[]>([]);
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType[]>(data);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);//setBookLoading
 
   //取 Redux 的 dispatch 函數。這個函數允許你在組件中分派（dispatch）actions，以更新 Redux store 中的狀態。
   const dispatch = useDispatch();
@@ -30,32 +24,12 @@ const Home = () => {
   const bookList = useSelector((state: RootState) => state.book.book);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); // Get the theme state
 
-  useEffect(() => {
-    async function fetchBooks(){
-      setLoading(true);
-      const allBooks =await getBookData();
-      setData(allBooks);
-      setTimeout(() => setLoading(false), 500);
-    };
-
-    fetchBooks();
-
-    ScrollTrigger.create({
-      start: 'top -20',
-      end: 99999,
-      toggleClass: { className: 'custom-menu--scrolled', targets: '.custom-menu' }
-    });
-    // 清除 ScrollTrigger，防止內存洩漏
-    return () => ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill());
-
-  }, []);
-
   const handleSearch = (value: string) => {
     setSearch(value);
-    const newList = data.filter((book) =>
-      book?.title?.toLowerCase().includes(value.toLowerCase())
-    );
-    setSearchList(newList);
+    // const newList = data.filter((book) =>
+    //   book?.title?.toLowerCase().includes(value.toLowerCase())
+    // );
+    // setSearchList(newList);
   };
 
   const sortAZ = () => {
@@ -65,7 +39,7 @@ const Home = () => {
     setSearchList(sortedList);
   };
 
-  const sortZA = () => {
+  function sortZA(){
     const sortedList = [...data].sort((a, b) => b.title.localeCompare(a.title));
     setSearchList(sortedList);
   };
@@ -87,6 +61,18 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    async function fetchBooks(){
+      setLoading(true);
+      const allBooks =await getBookData();
+      const sortedList = [...allBooks].sort((a, b) => a.title.localeCompare(b.title));
+      setSearchList(sortedList);
+      setData(sortedList);
+      setTimeout(() => setLoading(false), 500);
+    };
+    fetchBooks();
+  }, []);
+  
   useEffect(() => {
     const filteredList = data.filter((book) =>
       book?.title?.toLowerCase().includes(search.toLowerCase())
