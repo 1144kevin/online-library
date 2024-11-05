@@ -14,7 +14,7 @@ const Home = () => {
   const [data, setData] = useState<bookDataType[]>([]);
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType[]>(data);
-  const [loading, setLoading] = useState(false);//setBookLoading
+  const [loading, setLoading] = useState(false); //setBookLoading
 
   //取 Redux 的 dispatch 函數。這個函數允許你在組件中分派（dispatch）actions，以更新 Redux store 中的狀態。
   const dispatch = useDispatch();
@@ -39,10 +39,10 @@ const Home = () => {
     setSearchList(sortedList);
   };
 
-  function sortZA(){
+  function sortZA() {
     const sortedList = [...data].sort((a, b) => b.title.localeCompare(a.title));
     setSearchList(sortedList);
-  };
+  }
 
   const handleAddToFavorite = (book: bookDataType) => {
     dispatch(addToFavorite(book));
@@ -62,17 +62,19 @@ const Home = () => {
   };
 
   useEffect(() => {
-    async function fetchBooks(){
+    async function fetchBooks() {
       setLoading(true);
-      const allBooks =await getBookData();
-      const sortedList = [...allBooks].sort((a, b) => a.title.localeCompare(b.title));
+      const allBooks = await getBookData();
+      const sortedList = [...allBooks].sort((a, b) =>
+        a.title.localeCompare(b.title)
+      );
       setSearchList(sortedList);
       setData(sortedList);
       setTimeout(() => setLoading(false), 500);
-    };
+    }
     fetchBooks();
   }, []);
-  
+
   useEffect(() => {
     const filteredList = data.filter((book) =>
       book?.title?.toLowerCase().includes(search.toLowerCase())
@@ -83,21 +85,20 @@ const Home = () => {
   // Set the CSS variable for spin dot color
   useEffect(() => {
     document.documentElement.style.setProperty(
-      '--spin-dot-color',
-      isDarkMode ? '#fff' : '#000'
+      "--spin-dot-color",
+      isDarkMode ? "#fff" : "#000"
     );
   }, [isDarkMode]);
 
   return (
     <Layout>
-      <Row style={{
-              backgroundColor: isDarkMode ? "#000" : "#fff",
-              color: isDarkMode ? "#fff" : "#000",
-            }}>
-        <Col
-          span={24}
-          className="title"
-        >
+      <Row
+        style={{
+          backgroundColor: isDarkMode ? "#000" : "#fff",
+          color: isDarkMode ? "#fff" : "#000",
+        }}
+      >
+        <Col span={24} className="title">
           <h1>Home</h1>
         </Col>
         <Col span={24} className="searchBar">
@@ -107,7 +108,7 @@ const Home = () => {
             onSortZA={sortZA}
           />
         </Col>
-        <Col span={16} offset={4} style={{minHeight: "100vh"}}>
+        <Col span={16} offset={4} style={{ minHeight: "100vh" }}>
           {loading ? (
             <Spin size="large" className="loading" />
           ) : (
@@ -117,7 +118,10 @@ const Home = () => {
                   找到{searchList.length}筆與{search}有關
                 </h1>
               )}
-              <BookList bookList={searchList} handleFavorite={handleFavoriteToggle} />
+              <BookList
+                bookList={searchList}
+                handleFavorite={handleFavoriteToggle}
+              />
             </>
           )}
         </Col>

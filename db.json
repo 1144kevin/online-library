@@ -6,7 +6,7 @@
       "image": "https://images.pexels.com/photos/2286895/pexels-photo-2286895.jpeg?cs=srgb&dl=pexels-rfera-2286895.jpg&fm=jpg",
       "title": "abc",
       "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\n",
-      "comments":[],
+      "comments": [],
       "totalRating": 0,
       "isFavorite": false
     },
@@ -14,26 +14,8 @@
       "userId": 1,
       "id": "2",
       "image": "https://images.pexels.com/photos/2378278/pexels-photo-2378278.jpeg?cs=srgb&dl=pexels-shafi_fotumcatcher-1249695-2378278.jpg&fm=jpg",
-      "title": "aut facere repellat provident occaecati excepturi optio reprehenderit",
-      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet",
-      "comments": [
-        {
-          "userImage": "https://api.dicebear.com/7.x/miniavs/svg?seed=3",
-          "commentId": "3198a64e-31f0-472a-b1b2-004e6ef38fbf",
-          "userName": "user4",
-          "description": "vjnnsovn",
-          "rating": 4
-        },
-        {
-          "userImage": "https://api.dicebear.com/7.x/miniavs/svg?seed=4",
-          "commentId": "40e64dfd-578c-4f37-84ff-05efe9319119",
-          "userName": "user5",
-          "description": "vjnivjen",
-          "rating": 5
-        }
-      ],
-      "totalRating": 9,
-      "isFavorite": false
+      "title": "repellat provident occaecati excepturi optio reprehenderit",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet"
     },
     {
       "id": "3",
@@ -54,9 +36,16 @@
           "userName": "user5",
           "description": "ihrekejvie",
           "rating": 5
+        },
+        {
+          "userImage": "https://api.dicebear.com/7.x/miniavs/svg?seed=4",
+          "commentId": "df016b28-4e50-4f89-8d0c-3fed850499f1",
+          "userName": "user5",
+          "description": "njnon",
+          "rating": 3
         }
       ],
-      "totalRating": 7,
+      "totalRating": 10,
       "isFavorite": false
     },
     {
