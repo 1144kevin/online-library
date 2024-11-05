@@ -4,8 +4,7 @@ import { message } from "antd";
 import "./update.scss";
 import { getBookData, updateBookData } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { updateFavorite } from "../../redux/favoriteSlice";
+// import { useDispatch } from "react-redux";
 import BookForm from "../../components/BookForm/bookForm";
 
 // Define a type for the book data
@@ -21,7 +20,6 @@ const Update = () => {
   const { dataId } = useParams();
   const [data, setData] = useState<Book[]>([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     getBookData().then(setData);
@@ -57,7 +55,7 @@ const Update = () => {
     if (formData.title && formData.body) {
       updateBookData(formData).then((updatedBook) => {
         message.success("更新成功");
-        dispatch(updateFavorite(updatedBook));
+        // dispatch(updateFavorite(updatedBook));
         navigate(-1);
       });
     }

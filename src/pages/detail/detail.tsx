@@ -3,7 +3,7 @@ import { Row, Col, Image, Button, message, Spin } from "antd";
 import "./detail.scss";
 import CostumLink from "../../components/CustomLink/customLink";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromFavorite } from "../../redux/favoriteSlice";
+import { removeFavorite } from "../../redux/favoriteSlice";
 import { getBookData, deleteBookData } from "../../api/api";
 import { useEffect, useState } from "react";
 import { bookDataType } from "../../assets/data";
@@ -46,8 +46,9 @@ function Detail() {
     // 更新狀態
     setData(updatedData);
 
+    // 检查并移除收藏夹中的书籍
     if (book) {
-      dispatch(removeFromFavorite(book));
+      dispatch(removeFavorite(book.id));
     }
     message.success("刪除成功");
     navigate("/");

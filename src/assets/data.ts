@@ -14,4 +14,5 @@ export interface bookDataType{
     body:string;
     comments?:commentDataType[];
     totalRating?:number;
+    isFavorite?:boolean;
 }

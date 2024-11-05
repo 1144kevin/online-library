@@ -3,7 +3,7 @@ import BookList from "../../components/BookList/bookList";
 import { bookDataType } from "../../assets/data";
 import { Col, Row } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromFavorite, addToFavorite } from "../../redux/favoriteSlice";
+import { toggleFavorite } from "../../redux/favoriteSlice";
 import { RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
 import _ from "lodash";
@@ -20,23 +20,9 @@ const Favorite = () => {
     console.log("222",localFavorites)
   },[localFavorites])
 
-  const handleAddToFavorite = (book: bookDataType) => {
-    dispatch(addToFavorite(book));
-  };
-
-  const handleRemoveFromFavorite = (book: bookDataType) => {
-    dispatch(removeFromFavorite(book));
-  };
-
   const handleFavoriteToggle = (book: bookDataType) => {
-    const isFavorite = bookList.some((favBook) => favBook.id === book.id);
-    if (isFavorite) {
-      handleRemoveFromFavorite(book);
-    } else {
-      handleAddToFavorite(book);
-    }
+    dispatch(toggleFavorite(book));
   };
-
   return (
     <>
       <Layout>

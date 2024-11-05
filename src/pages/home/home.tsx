@@ -5,7 +5,7 @@ import BookList from "../../components/BookList/bookList";
 import { Row, Col, Spin } from "antd";
 import { bookDataType } from "../../assets/data";
 import "./home.scss";
-import { addToFavorite, removeFromFavorite } from "../../redux/favoriteSlice";
+import { toggleFavorite } from "../../redux/favoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getBookData } from "../../api/api";
@@ -21,7 +21,6 @@ const Home = () => {
 
   //用於從 Redux store 中提取特定的狀態。在這裡，useSelector 從 RootState 中提取 state.book.book，即 Redux store 中管理的書籍列表。
   //state 是整個 Redux store 的狀態。第一個 book 代表 book slice，第二個 book 代表 FavoriteState 中的 book 屬性，它是一個書籍數組。
-  const bookList = useSelector((state: RootState) => state.book.book);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); // Get the theme state
 
   const handleSearch = (value: string) => {
@@ -44,21 +43,8 @@ const Home = () => {
     setSearchList(sortedList);
   }
 
-  const handleAddToFavorite = (book: bookDataType) => {
-    dispatch(addToFavorite(book));
-  };
-
-  const handleRemoveFromFavorite = (book: bookDataType) => {
-    dispatch(removeFromFavorite(book));
-  };
-
   const handleFavoriteToggle = (book: bookDataType) => {
-    const isFavorite = bookList.some((favBook) => favBook.id === book.id);
-    if (isFavorite) {
-      handleRemoveFromFavorite(book);
-    } else {
-      handleAddToFavorite(book);
-    }
+    dispatch(toggleFavorite(book));
   };
 
   useEffect(() => {
