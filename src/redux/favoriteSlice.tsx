@@ -1,35 +1,38 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { bookDataType } from "../assets/data";
 
 interface FavoriteState {
-  book: bookDataType[];
+  bookIds: string[];
 }
 
 const initialState: FavoriteState = {
-  book: []
+  bookIds: [],
 };
 
 const favoriteSlice = createSlice({
-  name: 'favorite',
+  name: "favorite",
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<bookDataType>) => {
-      const index = state.book.findIndex(
-        (favoriteBook) => favoriteBook.id === action.payload.id
-      );
-      if (index !== -1) {
-        // 如果书籍已存在于收藏夹中，移除它并更新 isFavorite 为 false
-        state.book.splice(index, 1);
-      } else {
-        // 如果书籍不在收藏夹中，添加它并设置 isFavorite 为 true
-        state.book.push({ ...action.payload, isFavorite: true });
-      }
+    toggleFavorite: (state, action: PayloadAction<string>) => {
+      const index = state.bookIds.indexOf(action.payload);
+      // if (index !== -1) {
+      //   state.bookIds.splice(index, 1);
+      // } else {
+      //   state.bookIds.push(action.payload);
+      // }
+
+      if (index >= 0) {
+        state.bookIds.splice(index, 1);
+        return;
+      } 
+      
+      state.bookIds.push(action.payload);
+
     },
-    removeFavorite: (state, action: PayloadAction<string>) => {
-      state.book = state.book.filter((book) => book.id !== action.payload);
+    removeFavoriteById: (state, action: PayloadAction<string>) => {
+      state.bookIds = state.bookIds.filter((id) => id !== action.payload);
     },
-  }
+  },
 });
 
 export default favoriteSlice.reducer;
-export const { toggleFavorite, removeFavorite } = favoriteSlice.actions;
+export const { toggleFavorite, removeFavoriteById } = favoriteSlice.actions;

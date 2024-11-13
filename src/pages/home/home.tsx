@@ -14,7 +14,7 @@ const Home = () => {
   const [data, setData] = useState<bookDataType[]>([]);
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState<bookDataType[]>(data);
-  const [loading, setLoading] = useState(false); //setBookLoading
+  const [bookLoading, setBookLoading] = useState(false); //setBookLoading
 
   //取 Redux 的 dispatch 函數。這個函數允許你在組件中分派（dispatch）actions，以更新 Redux store 中的狀態。
   const dispatch = useDispatch();
@@ -44,19 +44,19 @@ const Home = () => {
   }
 
   const handleFavoriteToggle = (book: bookDataType) => {
-    dispatch(toggleFavorite(book));
+    dispatch(toggleFavorite(book.id));
   };
 
   useEffect(() => {
     async function fetchBooks() {
-      setLoading(true);
+      setBookLoading(true);
       const allBooks = await getBookData();
       const sortedList = [...allBooks].sort((a, b) =>
         a.title.localeCompare(b.title)
       );
       setSearchList(sortedList);
       setData(sortedList);
-      setTimeout(() => setLoading(false), 500);
+      setTimeout(() => setBookLoading(false), 500);
     }
     fetchBooks();
   }, []);
@@ -95,7 +95,7 @@ const Home = () => {
           />
         </Col>
         <Col span={16} offset={4} style={{ minHeight: "100vh" }}>
-          {loading ? (
+          {bookLoading ? (
             <Spin size="large" className="loading" />
           ) : (
             <>

@@ -3,7 +3,7 @@ import { Row, Col, Image, Button, message, Spin } from "antd";
 import "./detail.scss";
 import CostumLink from "../../components/CustomLink/customLink";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFavorite } from "../../redux/favoriteSlice";
+import { removeFavoriteById } from "../../redux/favoriteSlice";
 import { getBookData, deleteBookData } from "../../api/api";
 import { useEffect, useState } from "react";
 import { bookDataType } from "../../assets/data";
@@ -11,6 +11,7 @@ import { RootState } from "../../redux/store";
 import Comment from "../../components/Comment/comment";
 import { StarFilled } from "@ant-design/icons";
 import Layout from "../../Layout";
+import { isEmpty } from "lodash";
 
 function Detail() {
   const { dataId } = useParams(); //用來獲取 URL 中的 dataId
@@ -18,22 +19,9 @@ function Detail() {
   const dispatch = useDispatch();
   const [data, setData] = useState<bookDataType[]>([]);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-  const [loading, setLoading] = useState(true);
-  const [totalRating, setTotalRating] = useState<number | undefined>(undefined);
+  const [bookLoading, setBookLoading] = useState(true);
+  const [totalRating, setTotalRating] = useState<number | undefined>(0);
   const book = data.find((y) => y.id === dataId);
-
-  useEffect(() => {
-    setLoading(true);
-    getBookData().then(setData);
-    setTimeout(() => setLoading(false), 500);
-  }, []);
-
-  // 监听 book 变化并更新 totalRating
-  useEffect(() => {
-    if (book?.totalRating !== undefined) {
-      setTotalRating(book.totalRating);
-    }
-  }, [book]);
 
   function handleRatingUpdate(updatedRating: number) {
     setTotalRating(updatedRating); // 直接更新 totalRating
@@ -46,13 +34,24 @@ function Detail() {
     // 更新狀態
     setData(updatedData);
 
-    // 检查并移除收藏夹中的书籍
     if (book) {
-      dispatch(removeFavorite(book.id));
+      dispatch(removeFavoriteById(book.id));
     }
     message.success("刪除成功");
     navigate("/");
   }
+
+  useEffect(() => {
+    setBookLoading(true);
+    getBookData().then(setData);
+    setTimeout(() => setBookLoading(false), 500);
+  }, []);
+
+  useEffect(() => {
+    if (isEmpty(book)) return;
+
+    setTotalRating(book?.totalRating || 0);
+  }, [book]);
 
   return (
     <Layout>
@@ -63,7 +62,7 @@ function Detail() {
           color: isDarkMode ? "#fff" : "#000",
         }}
       >
-        {loading ? (
+        {bookLoading ? (
           <Spin size="large" className="loading" />
         ) : (
           <>

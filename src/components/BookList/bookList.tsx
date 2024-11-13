@@ -12,10 +12,10 @@ interface BookListProps {
 
 const BookList = ({ bookList, handleFavorite }: BookListProps) => {
 
-  const favoriteBooks = useSelector((state: RootState) => state.book.book);
+  const favoriteBooks = useSelector((state: RootState) => state.book.bookIds);
 
   // Convert the list of favorite books to a Set for quick lookups
-  const favoriteBookIds = new Set(favoriteBooks.map(item => item.id));
+  const favoriteBookIds = new Set(favoriteBooks.map(item => item));
 
   // Determine if each book is a favorite
   const processedBookList = bookList.map(book => ({

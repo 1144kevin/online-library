@@ -1,5 +1,65 @@
 {
-    "cSpell.words": [
-        "antd"
+    // 設定編輯器制表符大小為 2 個空格
+    "editor.tabSize": 2,
+    // 粘貼時自動格式化代碼
+    "editor.formatOnPaste": true,
+    // 儲存時自動格式化代碼
+    "editor.formatOnSave": true,
+    // 單引號格式化
+    "prettier.singleQuote": true,
+    // 使用 tab 字元作為縮排
+    "prettier.useTabs": true,
+    // Vue 文件中的 script 和 style 部分縮排
+    "prettier.vueIndentScriptAndStyle": true,
+    // TypeScript 模組導入時使用非相對路徑
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    // JavaScript 模組導入時使用非相對路徑
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    // 關閉 JavaScript 格式化
+    "javascript.format.enable": false,
+    // 關閉 SCSS 驗證
+    "scss.validate": false,
+    // 設定編輪器文字自動換行欄位為 100
+    "editor.wordWrapColumn": 100,
+    // 使用 "wordWrapColumn" 模式自動換行
+    "editor.wordWrap": "wordWrapColumn",
+    // 儲存時自動格式化代碼，包括 ESLint 和 Stylelint
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.fixAll.stylelint": "explicit"
+    },
+    "editor.formatOnSaveMode": "file",
+    // 預設使用 Prettier 作為格式化工具
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true // 需設定才有效
+    },
+  
+    // Extension: dbaeumer.vscode-eslint
+    "eslint.format.enable": true,
+    // 檢查 JavaScript 和 TypeScript 代碼
+    "eslint.validate": ["javascript", "typescript"],
+    // "eslint.workingDirectories": [{ "mode": "auto" }],
+    "eslint.run": "onSave",
+  
+    // Extension: hex-ci.stylelint-plus
+    // 使用本地 Stylelint 設定
+    "stylelint.useLocal": true,
+    // 儲存時自動修復 Stylelint 警告
+    "stylelint.autoFixOnSave": true,
+  
+    // Extension: streetsidesoftware.code-spell-checker
+    // 自定義拼寫詞彙
+    "cSpell.words": ["stylelint"],
+    // 忽略拼寫檢查的路徑
+    "cSpell.ignorePaths": [
+      "**/package.json",
+      "**/package-lock.json",
+      "**/node_modules/**",
+      "**/vscode-extension/**",
+      "**/.git/**",
+      ".vscode"
     ]
-}
+  }
+  

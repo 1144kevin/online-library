@@ -4,7 +4,6 @@ import { message } from "antd";
 import "./update.scss";
 import { getBookData, updateBookData } from "../../api/api";
 import { useParams, useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
 import BookForm from "../../components/BookForm/bookForm";
 
 // Define a type for the book data
@@ -53,9 +52,8 @@ const Update = () => {
 
   const handleSubmit = () => {
     if (formData.title && formData.body) {
-      updateBookData(formData).then((updatedBook) => {
+      updateBookData(formData).then(()=>{
         message.success("更新成功");
-        // dispatch(updateFavorite(updatedBook));
         navigate(-1);
       });
     }
