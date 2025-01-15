@@ -1,15 +1,37 @@
 import './App.scss';
-//任何一個被 ReduxProvider 包裹的組件都可以訪問 store，並使用 useSelector 和 useDispatch 鉤子來讀取狀態和分派動作。
+
 import { Provider as ReduxProvider } from 'react-redux';
 import store from '../src/redux/store';
 import Router from './router';
+import Login from './pages/login/login';
+import { useAuth } from './useAuth';
+import { Session } from '@supabase/supabase-js';
+import { supabase } from './supabaseClient';
+import { useEffect, useState } from 'react';
+// import Auth from './Auth';
 
-const App = () => {
-  return (
-      <ReduxProvider store={store}>
-        <Router />
-      </ReduxProvider>
-  );
+function App() {
+	const [session, setSession] = useState<Session | null>(null);
+
+	useEffect(() => {
+		supabase.auth.getSession().then(({ data: { session } }) => {
+			setSession(session);
+		});
+	}, []);
+	// const user = useUser();
+	const { user } = useAuth();
+
+	return (
+		<>
+			{user === null ? (
+				<Login />
+			) : (
+				<ReduxProvider store={store}>
+					<Router session={session} />
+				</ReduxProvider>
+			)}
+		</>
+	);
 }
 
 export default App;

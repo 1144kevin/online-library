@@ -5,6 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@supabase/supabase-js": "^2.46.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -32,8 +34,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run react\"",
-    "server": "json-server -p 3006 --watch db.json",
+    "start": "npm run react",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

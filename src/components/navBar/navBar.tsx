@@ -28,7 +28,6 @@ const NavBar: React.FC = () => {
   const [current, setCurrent] = useState(location.pathname);
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode); // Get the theme state
   const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
   

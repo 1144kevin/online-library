@@ -1,4 +1,4 @@
-import Layout from '../../Layout';
+import Layout from '../../Layout/layout';
 import BookList from '../../components/BookList/bookList';
 import { bookDataType } from '../../assets/data';
 import { Col, Row } from 'antd';
@@ -7,11 +7,13 @@ import { toggleFavorite } from '../../redux/favoriteSlice';
 import { RootState } from '../../redux/store';
 import { useEffect, useState } from 'react';
 import { getBookData } from '../../api/api';
+import { useAuth } from '../../useAuth';
 
 const Favorite = () => {
 	const favoriteIds = useSelector((state: RootState) => state.book.bookIds);
 	const [allBooks, setAllBooks] = useState<bookDataType[]>([]);
 	const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+	const { user } = useAuth();
 
 	const [localFavorites, setLocalFavorites] =
 		useState<bookDataType[]>(allBooks);
@@ -19,8 +21,10 @@ const Favorite = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		getBookData().then(setAllBooks);
-	}, []);
+		if (user) {
+			getBookData(user.id).then(setAllBooks);
+		}
+	}, [user]);
 
 	useEffect(() => {
 		const favorites = allBooks.filter((book) => favoriteIds.includes(book.id));

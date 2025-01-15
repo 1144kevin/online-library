@@ -1,6 +1,30 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 70px;
+.layout {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 70px;
+  }
+
+  .profile_button {
+    position: fixed;
+    top: 3rem;
+    right: 3rem;
+    z-index: 1000000;
+    padding: 2.5rem 1rem 2.5rem 1rem !important;
+    border-color: transparent;
+    box-shadow: 0 1px 2px -2px rgba(0, 0, 0, .16),
+      0 3px 6px 0 rgba(0, 0, 0, .12), 0 5px 12px 4px rgba(0, 0, 0, .09);
+  }
+
+  .logout_button {
+    position: fixed;
+    right: 3rem;
+    bottom: 3rem;
+    z-index: 1000000;
+    padding: 2.5rem 1rem 2.5rem 1rem !important;
+    border-color: transparent;
+    box-shadow: 0 1px 2px -2px rgba(0, 0, 0, .16),
+      0 3px 6px 0 rgba(0, 0, 0, .12), 0 5px 12px 4px rgba(0, 0, 0, .09);
+  }
 }

@@ -1,0 +1,46 @@
+@mixin flex__center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+label {
+	display: block;
+	padding: 0.3rem 0.8rem 0.3rem 0.8rem;
+	font-family: sans-serif;
+	color: #000;
+	cursor: pointer;
+	background-color: #fff;
+	border: #000 solid 0.1rem;
+	border-radius: 0.5rem;
+
+	&:hover {
+		background-color: #ffd500;
+		border-color: #ffd500;
+	}
+}
+
+.imagePicker__button {
+	Button {
+		width: 8rem;
+	}
+}
+
+.avatar {
+	.ant-skeleton-image-svg {
+		width: 4rem !important;
+    height: 100% !important;
+	}
+
+	.ant-image .ant-image-mask {
+		border-radius: 50%;
+
+		&:hover {
+			border-radius: 50%;
+		}
+	}
+
+	.ant-spin-dot-item {
+		background-color: #000 !important;
+	}
+}

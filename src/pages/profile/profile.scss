@@ -1,0 +1,21 @@
+@mixin flex__center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.profile {
+	&_container {
+		align-content: center;
+		text-align: center;
+	}
+
+	.ant-form-item {
+		margin: 0;
+	}
+
+	.button {
+		width: 12rem;
+		height: 2.5rem;
+	}
+}

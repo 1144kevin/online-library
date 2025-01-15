@@ -40,48 +40,48 @@ function Comment({
   const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   function handleAddComment() {
-    const randomNumber = Math.floor(Math.random() * 6);
-    const newCommentData = {
-      userImage: faceImage[randomNumber].avatar,
-      commentId: uuidv4(),
-      userName: `user${randomNumber + 1}`,
-      description: newComment,
-      rating: currentRating,
-    };
+		const randomNumber = Math.floor(Math.random() * 6);
+		const newCommentData = {
+			userImage: faceImage[randomNumber].avatar,
+			commentId: uuidv4(),
+			userName: `user${randomNumber + 1}`,
+			description: newComment,
+			rating: currentRating,
+		};
 
-    const newData = {
-      ...data,
-      comments: [...comments, newCommentData],
-      totalRating: (data.totalRating || 0) + currentRating,
-    };
-    
-    updateBookData(newData);
-    message.success('評論新增成功')
-    setData(newData);
-    setComments(newData.comments);
-    setNewComment("");
-    setCurrentRating(0);
-    console.log("totalRating2222",newData.totalRating)
-    // 通知 Detail 組件更新 totalRating
-    onRatingUpdate(newData.totalRating);
-  }
+		const newData = {
+			...data,
+			comments: [...comments, newCommentData],
+			total_rating: (data.total_rating || 0) + currentRating,
+		};
+
+		updateBookData(newData);
+		message.success('評論新增成功');
+		setData(newData);
+		setComments(newData.comments);
+		setNewComment('');
+		setCurrentRating(0);
+		console.log('total_rating', newData.total_rating);
+		// 通知 Detail 組件更新 total_rating
+		onRatingUpdate(newData.total_rating);
+	}
 
   function handleDeleteComment(commentId: string) {
-    const commentToDelete = comments.find(
-      (comment) => comment.commentId === commentId
-    );
-    const newData = {
-      ...data,
-      comments: comments.filter((comment) => comment.commentId !== commentId),
-      totalRating: (data.totalRating || 0) - (commentToDelete?.rating || 0),
-    };
-    updateBookData(newData);
-    message.success('評論刪除成功')
-    setData(newData);
-    setComments(newData.comments);
-    // 通知 Detail 組件更新 totalRating
-    onRatingUpdate(newData.totalRating);
-  }
+		const commentToDelete = comments.find(
+			(comment) => comment.commentId === commentId
+		);
+		const newData = {
+			...data,
+			comments: comments.filter((comment) => comment.commentId !== commentId),
+			total_rating: (data.total_rating || 0) - (commentToDelete?.rating || 0),
+		};
+		updateBookData(newData);
+		message.success('評論刪除成功');
+		setData(newData);
+		setComments(newData.comments);
+		// 通知 Detail 組件更新 total_rating
+		onRatingUpdate(newData.total_rating);
+	}
 
   function handleEditClick(commentId: string, currentContent: string) {
     setEditingCommentId(commentId);
@@ -92,29 +92,29 @@ function Comment({
   }
 
   function handleSaveEdit(commentId: string) {
-    const commentToEdit = comments.find(
-      (comment) => comment.commentId === commentId
-    );
-    const updatedComments = comments.map((comment) =>
-      comment.commentId === commentId
-        ? { ...comment, description: editedContent, rating: currentRating }
-        : comment
-    );
-    const newData = {
-      ...data,
-      comments: updatedComments,
-      totalRating:
-        (data.totalRating || 0) - (commentToEdit?.rating || 0) + currentRating,
-    };
-    updateBookData(newData);
-    message.success('修改完成')
-    setData(newData);
-    setComments(updatedComments);
-    setEditingCommentId(null);
-    setCurrentRating(0);
-    // 通知 Detail 組件更新 totalRating
-    onRatingUpdate(newData.totalRating);
-  }
+		const commentToEdit = comments.find(
+			(comment) => comment.commentId === commentId
+		);
+		const updatedComments = comments.map((comment) =>
+			comment.commentId === commentId
+				? { ...comment, description: editedContent, rating: currentRating }
+				: comment
+		);
+		const newData = {
+			...data,
+			comments: updatedComments,
+			total_rating:
+				(data.total_rating || 0) - (commentToEdit?.rating || 0) + currentRating,
+		};
+		updateBookData(newData);
+		message.success('修改完成');
+		setData(newData);
+		setComments(updatedComments);
+		setEditingCommentId(null);
+		setCurrentRating(0);
+		// 通知 Detail 組件更新 total_rating
+		onRatingUpdate(newData.total_rating);
+	}
 
   function handleToggleLike(commentId: string) {
     dispatch(toggleLike(commentId));

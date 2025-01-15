@@ -1,0 +1,25 @@
+.login {
+  &_Container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  form {
+    width: 360px;
+  }
+
+  .button {
+    width: 38%;
+    margin: .5rem;
+  }
+
+  label {
+    border: none;
+
+    &:hover {
+      background-color: unset;
+    }
+  }
+}
